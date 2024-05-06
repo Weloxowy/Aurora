@@ -1,0 +1,9 @@
+.mantine-DatePicker-calendarHeader{
+    width: 100%;
+    height: 100%;
+}
+.calendarHeader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

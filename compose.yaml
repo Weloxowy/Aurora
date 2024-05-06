@@ -1,0 +1,36 @@
+version: '3.7'
+
+services:
+  backend:
+    image: mcr.microsoft.com/dotnet/aspnet:8.0-alpine
+    ports:
+      - "8000:8000"  # Mapowanie portów
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production  # Ustawienie środowiska na produkcyjne
+    depends_on:
+      - database  # Backend zależy od bazy danych
+    networks:
+      - your-network  # Ustawienie wspólnej sieci dla kontenerów
+
+  frontend:
+    image: node:13.12.0-alpine
+    ports:
+      - "3000:3000"  # Mapowanie portów
+    environment:
+      - NODE_ENV=production  # Ustawienie środowiska na produkcyjne
+    networks:
+      - your-network  # Ustawienie wspólnej sieci dla kontenerów
+
+  database:
+    image: mcr.microsoft.com/mssql/server:latest
+    ports:
+      - "1433:1433"  # Mapowanie portów
+    environment:
+      SA_PASSWORD: StrongPassword123! # Hasło dla użytkownika SA
+      ACCEPT_EULA: Y  # Potwierdzenie akceptacji licencji
+    networks:
+      - your-network  # Ustawienie wspólnej sieci dla kontenerów
+
+networks:
+  your-network:
+    driver: bridge
