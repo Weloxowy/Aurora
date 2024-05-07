@@ -4,7 +4,7 @@ export default function EAddressF(){
 
     return(
         <>
-            <Title order={2} mb={rem(20)}>Twoje dane</Title>
+            <Title order={2} mb={rem(20)} style={{position:'initial',alignItems:'center', top:'5%'}}>Twoje dane</Title>
             <Text pb={rem(100)} style={{fontSize: 18}}>Dane uzupełnione kolorem szarym mogą być zmienione przez osobę o wyższym poziomie dostępu.</Text>
 
                 <Grid style={{width: '100vh'}} grow gutter="lg">

@@ -1,9 +1,21 @@
-import {Flex, Title, Text, Grid, TextInput, Fieldset, NativeSelect, GridCol, Divider, rem} from "@mantine/core";
+import {
+    Flex,
+    Title,
+    Text,
+    Grid,
+    TextInput,
+    Fieldset,
+    NativeSelect,
+    GridCol,
+    Divider,
+    rem,
+    AppShell
+} from "@mantine/core";
 
 export default function EPersonalF(){
 
     return(
-        <>
+        <AppShell style={{position:'relative',alignItems:'center'}}>
 
             <Title order={2} mb={rem(20)}>Twoje dane</Title>
             <Text pb={rem(100)} style={{fontSize: 18}}>Dane uzupełnione kolorem szarym mogą być zmienione przez osobę o wyższym poziomie dostępu.</Text>
@@ -20,6 +32,6 @@ export default function EPersonalF(){
                     </GridCol>
 
                 </Grid>
-        </>
+        </AppShell>
     )
 }

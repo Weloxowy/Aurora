@@ -50,7 +50,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(
                 <Route path="/yourdata" element={<EAddress/>} />
                 <Route path="/yourbanking" element={<EBanking/>} />
                 <Route path="/yourpersonal" element={<EPersonal/>} />
-
             </Routes>
         </BrowserRouter>
     </MantineProvider>
