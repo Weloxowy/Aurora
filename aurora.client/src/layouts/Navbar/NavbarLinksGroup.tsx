@@ -8,6 +8,7 @@ interface LinksGroupProps {
     label: string;
     initiallyOpened?: boolean;
     links?: { label: string; link: string }[];
+    link?: string;
 }
 
 export function LinksGroup({ icon: Icon, label, initiallyOpened, links }: LinksGroupProps) {
@@ -19,7 +20,7 @@ export function LinksGroup({ icon: Icon, label, initiallyOpened, links }: LinksG
             className={classes.link}
             href={link.link}
             key={link.label}
-            onClick={(event) => event.preventDefault()}
+            //onClick={(event) => event.preventDefault()}
         >
             {link.label}
         </Text>

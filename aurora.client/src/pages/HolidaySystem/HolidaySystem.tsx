@@ -16,7 +16,7 @@ export default function HolidaySystem(){
             <div style={{ zIndex: 1}}>
                 <Navbar/>
             </div>
-            <div style={{ zIndex: 0, paddingLeft:'20%'}}>
+            <div style={{ zIndex: 0, paddingLeft:'15%'}}>
                 <HolidayCalendar />
             </div>
         </Flex>

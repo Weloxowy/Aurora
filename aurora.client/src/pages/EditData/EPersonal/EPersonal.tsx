@@ -1,14 +1,13 @@
-import {Navbar} from "../../layouts/Navbar/Navbar.tsx";
+import {Navbar} from "../../../layouts/Navbar/Navbar.tsx";
 import {Flex} from "@mantine/core";
-import MainPage from "../../features/Commons/Main/MainPage.tsx";
+import EPersonalF from "../../../features/Commons/PersonalData/EPersonalF.tsx";
 
-export default function Panel(){
+export default function EAddress(){
 
     return(
         <Flex
             gap="lg"
-            justify="center"
-            align="center"
+
             direction="row"
             wrap="nowrap"
             style={{margin:'auto'}}
@@ -16,8 +15,8 @@ export default function Panel(){
             <div style={{ zIndex: 1}}>
                 <Navbar/>
             </div>
-            <div style={{ zIndex: 0, paddingLeft:'15%'}}>
-                <MainPage />
+            <div style={{ zIndex: 0, paddingLeft: '15%'}}>
+                <EPersonalF/>
             </div>
         </Flex>
     );

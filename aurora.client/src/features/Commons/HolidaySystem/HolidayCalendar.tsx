@@ -2,10 +2,19 @@ import classes from './HolidayCalendar.module.css';
 import {useEffect, useState} from 'react';
 import {DatePicker, DatesProvider} from '@mantine/dates';
 import '@mantine/dates/styles.css';
-import {Flex, MantineThemeProvider, rem, Title, Text, Paper, Button, Group, ButtonGroup} from "@mantine/core";
+import {Flex, MantineThemeProvider, rem, Title, Text, Paper, Button, Group, ButtonGroup, Modal} from "@mantine/core";
 import {IconFileArrowRight, IconRestore} from "@tabler/icons-react";
 import 'dayjs/locale/pl.js';
+import NewForm from "../FormsManagment/NewForm/NewForm.tsx";
+import {useDisclosure} from "@mantine/hooks";
+
+import Auth from "../../../pages/Auth/Auth.tsx";
+import TestModal from "../TestModal.tsx";
+
+
 export default function HolidayCalendar() {
+    const [opened, { open, close }] = useDisclosure();
+
     const [value, setValue] = useState<[Date | null, Date | null]>([null, null]);
     const theme = MantineThemeProvider;
 
@@ -31,10 +40,6 @@ export default function HolidayCalendar() {
         setValue([null,null]);
     }
 
-    function MakeNewForm(){
-
-    }
-
     return (
         <Flex
             gap="xl"
@@ -43,6 +48,7 @@ export default function HolidayCalendar() {
             direction="column"
             wrap="nowrap"
         >
+            <NewForm />
             <Title order={3}>System urlopowy</Title>
             <Flex
                 gap="lg"
@@ -54,7 +60,7 @@ export default function HolidayCalendar() {
                 <Text>Wybierz datę rozpoczęcia i zakończenia urlopu.
                     Aktualny sezon urlopowy zaczyna się <b>2 lipca</b>, a kończy <b>26 sierpnia</b>.
                     Wybranie daty nie jest równoznaczne ze złożeniem wniosku. </Text>
-                <Paper radius="md" p="xl" withBorder style={{textWrap: "nowrap"}}>
+                <Paper radius="md" p="md" withBorder style={{textWrap: "nowrap"}}>
                     <Text>Pula dni do wykorzystania <b>20 dni</b></Text>
                     <Text>Pozostało do wykorzystania  <b>6 dni</b></Text>
                 </Paper>
@@ -100,7 +106,10 @@ export default function HolidayCalendar() {
         </DatesProvider>
             <Group gap={"lg"}>
                 <Button rightSection={<IconRestore size={16} />} variant={"light"} size={"md"} onClick={ClearPicker}>Resetuj kalendarz</Button>
-                <Button rightSection={<IconFileArrowRight size={16} />} size={"md"} onClick={MakeNewForm}>Złóż wniosek</Button>
+                <Button rightSection={<IconFileArrowRight size={16} />} size={"md"} onClick={open}>Złóż wniosek</Button>
+                <Modal opened={opened} onClose={close} centered fullScreen style={{ position: 'absolute', top:'0%', left: '0%', right: '0%'}}>
+                    <TestModal />
+                </Modal>
             </Group>
         </Flex>
     );

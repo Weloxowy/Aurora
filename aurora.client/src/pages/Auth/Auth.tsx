@@ -15,7 +15,7 @@ import {
 } from '@mantine/core';
 import './Auth.css';
 import '@mantine/core/styles.css';
-import auth from '../../assets/Auth.png'
+import './Auth.css';
 import {IconArrowBackUp} from "@tabler/icons-react";
 /*import { checkUserLoggedIn } from "../../features/getCookies/getCookies";
 */
@@ -186,7 +186,7 @@ export default function Auth(props) {
 
     return (
         formUsage === 'default' ?
-            <Paper radius="md" p="xl" withBorder {...props} w={400}>
+            <Paper radius="md" p="xl" withBorder {...props} w={400} className="auth">
                 <Text size="xl" fw={700} pb={"xl"}>
                     {formType === 'register'
                         ? 'Miło cię widzieć!'

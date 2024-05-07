@@ -15,9 +15,9 @@ const mockdata = [
         icon: IconUser,
         initiallyOpened: true,
         links: [
-            { label: 'Dane osobowe', link: '/' },
-            { label: 'Dane adresowe', link: '/' },
-            { label: 'Dane bankowe', link: '/' },
+            { label: 'Dane osobowe', link: '/yourdata' },
+            { label: 'Dane adresowe', link: '/yourpersonal' },
+            { label: 'Dane bankowe', link: '/yourbanking' },
         ],
     },
     {
@@ -29,7 +29,7 @@ const mockdata = [
             { label: 'Twoje wnioski', link: '/' },
         ],
     },
-    { label: 'Regulaminy', icon: IconBooks, link: '' },
+    { label: 'Regulaminy', icon: IconBooks, link: '/yourdata' },
     { label: 'Urlopy', icon: IconBeach, link: '/calendar' },
     { label: 'Ustawienia', icon: IconSettings, link: '/2' },
 ];

@@ -12,6 +12,10 @@ import { Error } from "./pages/Error/Error.tsx";
 import Panel from "./pages/Panel/Panel.tsx";
 import DefaultForm from "./components/DefaultForm/DefaultForm.tsx";
 import HolidaySystem from './pages/HolidaySystem/HolidaySystem.tsx';
+import EAddress from './pages/EditData/EAddress/EAddress.tsx';
+import EBanking from "./pages/EditData/EBanking/EBanking.tsx";
+import EPersonalF from "./features/Commons/PersonalData/EPersonalF.tsx";
+import EPersonal from './pages/EditData/EPersonal/EPersonal.tsx';
 
 // Tworzenie motywu Mantine
 const theme = createTheme({
@@ -43,6 +47,10 @@ ReactDOM.createRoot(document.getElementById('root')).render(
                 <Route path="/" element={<Panel />} />
                 <Route path="/calendar" element={<HolidaySystem />} />
                 <Route path="/def" element={<DefaultForm />} />
+                <Route path="/yourdata" element={<EAddress/>} />
+                <Route path="/yourbanking" element={<EBanking/>} />
+                <Route path="/yourpersonal" element={<EPersonal/>} />
+
             </Routes>
         </BrowserRouter>
     </MantineProvider>
