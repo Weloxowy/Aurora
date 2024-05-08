@@ -1,5 +1,5 @@
 import {Navbar} from "../../layouts/NewNavbar/Navbar.tsx";
-import {AppShell, Burger, Flex, Group, Image, rem} from "@mantine/core";
+import {AppShell, Burger, Group, Image, rem} from "@mantine/core";
 import HolidayCalendar from "../../features/Commons/HolidaySystem/HolidayCalendar.tsx";
 import {useDisclosure} from "@mantine/hooks";
 import logo from "../../assets/LogoWithName.svg";
@@ -17,7 +17,7 @@ export default function HolidaySystem(){
             padding="md"
         >
             <AppShell.Header
-                w={{ base: '100vh',sm: 250, md: 250, lg: 300 }}
+                w={{ base: '100vw',sm: 250, md: 250, lg: 300 }}
                 style={{
                     borderInlineEnd: 'calc(0.0625rem * var(--mantine-scale)) solid var(--app-shell-border-color)',
                     '@media (max-width: 1300px)': {
@@ -33,7 +33,7 @@ export default function HolidaySystem(){
             <AppShell.Navbar h={"100%"}>
                 <Navbar/>
             </AppShell.Navbar>
-            <AppShell.Main>
+            <AppShell.Main pt={rem(16)}>
             <div>
                 <HolidayCalendar />
             </div>

@@ -16,9 +16,9 @@ export default function Cards(){
             <Card shadow="lg" padding="lg" radius="md" withBorder className={classes.cards}>
                 <Card.Section>
                     <Image
-                        src="https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/images/bg-8.png"
+                        src="https://images.unsplash.com/photo-1502784444187-359ac186c5bb?q=80&w=1965&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                         height={160}
-                        alt="Pracownicy"
+                        alt="Łodzie"
                     />
                 </Card.Section>
 
@@ -41,7 +41,7 @@ export default function Cards(){
             <Card shadow="lg" padding="lg" radius="md" withBorder>
                 <Card.Section>
                     <Image
-                        src="https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/images/bg-8.png"
+                        src="https://images.unsplash.com/photo-1603807008857-ad66b70431aa?q=80&w=2073&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                         height={160}
                         alt="Stetoskop"
                     />
@@ -53,8 +53,8 @@ export default function Cards(){
                 </Group>
 
                 <Text size="sm" c="dimmed">
-                    Skierowanie na badanie okresowe znajdą państwo w zakładce Twoje dokumenty w kategorii Inne dokumenty.
-                    Badanie należy wykonać w ciągu 60 dni od daty wysłania skierowania na badanie.
+                    Skierowanie na badanie okresowe znajdą Państwo w zakładce Twoje dokumenty w kategorii Inne dokumenty.
+                    Badanie należy wykonać w ciągu 60 dni od daty wysłania skierowania.
                 </Text>
 
                 <Button color={theme.colors.blue[4]} fullWidth mt="md" radius="md">

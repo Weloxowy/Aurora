@@ -1,10 +1,10 @@
 import {Navbar} from "../../layouts/NewNavbar/Navbar.tsx";
-import {AppShell, Burger, Group, Image, rem} from "@mantine/core";
-import MainPage from "../../features/Commons/Main/MainPage.tsx";
+import {AppShell, Burger, Flex, Group, Image, rem} from "@mantine/core";
 import {useDisclosure} from "@mantine/hooks";
 import logo from "../../assets/LogoWithName.svg";
+import SettingsComponent from "../../features/Commons/Settings/SettingsComponent.tsx";
 
-export default function Panel(){
+export default function Settings(){
     const [opened, { toggle }] = useDisclosure();
     return(
         <AppShell
@@ -35,7 +35,7 @@ export default function Panel(){
             </AppShell.Navbar>
             <AppShell.Main pt={rem(16)}>
                 <div>
-                    <MainPage />
+                    <SettingsComponent/>
                 </div>
             </AppShell.Main>
         </AppShell>

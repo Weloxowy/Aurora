@@ -1,10 +1,11 @@
-import {Navbar} from "../../layouts/NewNavbar/Navbar.tsx";
+import {Navbar} from "../../../layouts/NewNavbar/Navbar.tsx";
 import {AppShell, Burger, Group, Image, rem} from "@mantine/core";
-import MainPage from "../../features/Commons/Main/MainPage.tsx";
 import {useDisclosure} from "@mantine/hooks";
-import logo from "../../assets/LogoWithName.svg";
+import logo from "../../../assets/LogoWithName.svg";
+import YourDocs from "../../../features/Commons/DocumentManagment/YourDocs/YourDocs.tsx";
 
-export default function Panel(){
+
+export default function AllForms(){
     const [opened, { toggle }] = useDisclosure();
     return(
         <AppShell
@@ -35,7 +36,7 @@ export default function Panel(){
             </AppShell.Navbar>
             <AppShell.Main pt={rem(16)}>
                 <div>
-                    <MainPage />
+                    <YourDocs/>
                 </div>
             </AppShell.Main>
         </AppShell>

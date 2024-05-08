@@ -35,8 +35,6 @@ export default function EAddressF(){
                             <NativeSelect label={"Status umowy"} data={["Pełny etat"]} disabled/>
                         </Fieldset>
                     </GridCol>
-
-
                 </Grid>
         </>
     )

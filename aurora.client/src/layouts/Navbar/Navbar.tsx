@@ -31,7 +31,7 @@ const mockdata = [
     },
     { label: 'Regulaminy', icon: IconBooks, link: '/yourdata' },
     { label: 'Urlopy', icon: IconBeach, link: '/calendar' },
-    { label: 'Ustawienia', icon: IconSettings, link: '/2' },
+    { label: 'Ustawienia', icon: IconSettings, link: '/settings' },
 ];
 
 const linkStyle = {

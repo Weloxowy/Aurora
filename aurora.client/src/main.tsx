@@ -14,8 +14,9 @@ import DefaultForm from "./components/DefaultForm/DefaultForm.tsx";
 import HolidaySystem from './pages/HolidaySystem/HolidaySystem.tsx';
 import EAddress from './pages/EditData/EAddress/EAddress.tsx';
 import EBanking from "./pages/EditData/EBanking/EBanking.tsx";
-import EPersonalF from "./features/Commons/PersonalData/EPersonalF.tsx";
 import EPersonal from './pages/EditData/EPersonal/EPersonal.tsx';
+import Settings from './pages/Settings/Settings.tsx';
+import AllDocs from "./pages/DocumentsAndForms/Documents/AllDocs.tsx";
 
 // Tworzenie motywu Mantine
 const theme = createTheme({
@@ -42,14 +43,17 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <MantineProvider theme={theme} defaultColorScheme="auto">
         <BrowserRouter>
             <Routes>
-                <Route path="/auth" element={<AuthWithBackground />} />
-                <Route path="/404" element={<Error />} />
+                <Route path="/*" element={<Error />} />
                 <Route path="/" element={<Panel />} />
+
+                <Route path="/auth" element={<AuthWithBackground />} />
                 <Route path="/calendar" element={<HolidaySystem />} />
                 <Route path="/def" element={<DefaultForm />} />
                 <Route path="/yourdata" element={<EAddress/>} />
+                <Route path="/yourdocs" element={<AllDocs/>} />
                 <Route path="/yourbanking" element={<EBanking/>} />
                 <Route path="/yourpersonal" element={<EPersonal/>} />
+                <Route path="/settings" element={<Settings/>} />
             </Routes>
         </BrowserRouter>
     </MantineProvider>

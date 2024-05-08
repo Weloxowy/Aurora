@@ -1,6 +1,6 @@
 import {DatePicker, DatesProvider} from "@mantine/dates";
 import classes from "./HolidaySystem/HolidayCalendar.module.css";
-import {MantineThemeProvider, rem} from "@mantine/core";
+import { rem } from "@mantine/core";
 import {useState} from "react";
 
 export default function TestModal(){
