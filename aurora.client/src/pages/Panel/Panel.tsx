@@ -1,4 +1,4 @@
-import {Navbar} from "../../layouts/NewNavbar/Navbar.tsx";
+import {Navbar} from "../../layouts/Navbar/Navbar.tsx";
 import {AppShell, Burger, Group, Image, rem} from "@mantine/core";
 import MainPage from "../../features/Commons/Main/MainPage.tsx";
 import {useDisclosure} from "@mantine/hooks";

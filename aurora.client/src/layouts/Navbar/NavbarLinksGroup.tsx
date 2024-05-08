@@ -31,8 +31,8 @@ export function LinksGroup({ icon: Icon, label, initiallyOpened, links }: LinksG
             <UnstyledButton onClick={() => setOpened((o) => !o)} className={classes.control}>
                 <Group justify="space-between" gap={0}>
                     <Box style={{ display: 'flex', alignItems: 'center' }}>
-                        <ThemeIcon variant="light" size={30}>
-                            <Icon style={{ width: rem(18), height: rem(18) }} />
+                        <ThemeIcon variant="light" size={35}>
+                            <Icon style={{ width: rem(20), height: rem(20) }} />
                         </ThemeIcon>
                         <Box ml="md">{label}</Box>
                     </Box>
@@ -41,8 +41,8 @@ export function LinksGroup({ icon: Icon, label, initiallyOpened, links }: LinksG
                             className={classes.chevron}
                             stroke={1.5}
                             style={{
-                                width: rem(16),
-                                height: rem(16),
+                                width: rem(20),
+                                height: rem(20),
                                 transform: opened ? 'rotate(-90deg)' : 'none',
                             }}
                         />

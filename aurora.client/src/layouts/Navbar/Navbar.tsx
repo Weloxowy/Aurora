@@ -1,10 +1,9 @@
-import {Text, ScrollArea, Image, rem, Avatar, Flex, Group} from '@mantine/core';
+import {Text, ScrollArea, rem, Avatar, Flex} from '@mantine/core';
 import {
     IconHome2, IconUser, IconFiles, IconBooks, IconBeach, IconSettings, IconLogout,
 } from '@tabler/icons-react';
 import { LinksGroup } from './NavbarLinksGroup.tsx';
 import classes from './Navbar.module.css';
-import logo from '../../assets/LogoWithName.svg'
 import {logout} from "../../functions/Auth/Logout/Logout.tsx";
 import {Link} from "react-router-dom";
 
@@ -13,7 +12,7 @@ const mockdata = [
     {
         label: 'Twoje dane',
         icon: IconUser,
-        initiallyOpened: true,
+        initiallyOpened: false,
         links: [
             { label: 'Dane osobowe', link: '/yourdata' },
             { label: 'Dane adresowe', link: '/yourpersonal' },
@@ -25,18 +24,18 @@ const mockdata = [
         icon: IconFiles,
         initiallyOpened: false,
         links: [
-            { label: 'Twoje dokumenty', link: '/' },
-            { label: 'Twoje wnioski', link: '/' },
+            { label: 'Twoje dokumenty', link: '/yourdocs' },
+            { label: 'Twoje wnioski', link: '/yourdocs' },
         ],
     },
-    { label: 'Regulaminy', icon: IconBooks, link: '/yourdata' },
+    { label: 'Regulaminy', icon: IconBooks, link: '/firmdocs' },
     { label: 'Urlopy', icon: IconBeach, link: '/calendar' },
     { label: 'Ustawienia', icon: IconSettings, link: '/settings' },
 ];
 
 const linkStyle = {
     textDecoration: "none",
-    color: 'blue' //NIE DZIAŁA
+    color: 'blue', //NIE DZIAŁA
 };
 
 export function Navbar() {
@@ -56,10 +55,6 @@ export function Navbar() {
 
     return (
         <nav className={classes.navbar}>
-            <div className={classes.header}>
-                    <Image src={logo} style={{ width: rem(250) }}/>
-            </div>
-
             <ScrollArea className={classes.links}>
                 <div className={classes.linksInner}>{links}</div>
             </ScrollArea>
@@ -67,14 +62,13 @@ export function Navbar() {
             <div className={classes.footer}>
                 <Flex
                     gap="lg"
-                    justify="space-evenly"
+                    justify="space-between"
                     align="center"
                     direction="row"
                     wrap="nowrap"
                 >
                     <Avatar variant={"filled"} color={"blue"} w={50} h={50} ml={rem(8)}>AW</Avatar>
                     <Flex
-
                         justify="flex-start"
                         align="flex-start"
                         direction="column"

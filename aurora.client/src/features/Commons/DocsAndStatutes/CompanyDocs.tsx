@@ -23,7 +23,7 @@ const elements = [
 
 ];
 
-export default function YourDocs(){
+export default function CompanyDocs(){
     const [openMenuId, setOpenMenuId] = useState<number | null>(null);
 
     const rows = elements.map((element) => (
@@ -61,18 +61,14 @@ export default function YourDocs(){
     const [activeTab, setActiveTab] = useState<string | null>('all');
     return (
         <>
-            <Title order={2} mb={rem(20)} style={{position:'initial',alignItems:'center', top:'5%'}}>Twoje dokumenty</Title>
-            <Group gap={"lg"} >
-                <Button rightSection={<IconFileImport size={16} />} variant={"outline"} size={"md"} >Nowy dokument</Button>
-                <Button rightSection={<IconFilePlus size={16} />} size={"md"} >Nowy wniosek</Button>
-            </Group>
+            <Title order={2} mb={rem(20)} style={{position:'initial',alignItems:'center', top:'5%'}}>Regulaminy</Title>
             <Tabs defaultValue="all" value={activeTab} onChange={setActiveTab} style={{width: '70vw', marginTop: '5vh'}}>
                 <Tabs.List>
                     <Tabs.Tab value="all">Wszystkie dokumenty</Tabs.Tab>
-                    <Tabs.Tab value="contracts">Umowy</Tabs.Tab>
-                    <Tabs.Tab value="forms">Wnioski</Tabs.Tab>
+                    <Tabs.Tab value="contracts">Regulaminy</Tabs.Tab>
+                    <Tabs.Tab value="forms">Kodeksy</Tabs.Tab>
                     <Tabs.Tab value="other">
-                        Inne dokumenty
+                        Formularze
                     </Tabs.Tab>
                 </Tabs.List>
                 <Tabs.Panel value="all" pt="xs">
@@ -141,6 +137,6 @@ export default function YourDocs(){
                 </Tabs.Panel>
             </Tabs>
 
-    </>
+        </>
     );
 }

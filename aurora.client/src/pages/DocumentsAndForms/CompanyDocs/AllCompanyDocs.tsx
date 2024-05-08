@@ -1,10 +1,10 @@
-import {Navbar} from "../../layouts/Navbar/Navbar.tsx";
+import {Navbar} from "../../../layouts/Navbar/Navbar.tsx";
 import {AppShell, Burger, Group, Image, rem} from "@mantine/core";
-import HolidayCalendar from "../../features/Commons/HolidaySystem/HolidayCalendar.tsx";
 import {useDisclosure} from "@mantine/hooks";
-import logo from "../../assets/LogoWithName.svg";
+import logo from "../../../assets/LogoWithName.svg";
+import CompanyDocs from "../../../features/Commons/DocsAndStatutes/CompanyDocs.tsx";
 
-export default function HolidaySystem(){
+export default function AllCompanyDocs(){
     const [opened, { toggle }] = useDisclosure();
     return(
         <AppShell
@@ -34,9 +34,9 @@ export default function HolidaySystem(){
                 <Navbar/>
             </AppShell.Navbar>
             <AppShell.Main pt={rem(16)}>
-            <div>
-                <HolidayCalendar />
-            </div>
+                <div>
+                    <CompanyDocs/>
+                </div>
             </AppShell.Main>
         </AppShell>
     );

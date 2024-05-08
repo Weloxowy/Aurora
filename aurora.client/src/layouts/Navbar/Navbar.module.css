@@ -1,16 +1,12 @@
 .navbar {
     background-color: light-dark(var(--mantine-color-white), var(--mantine-color-dark-6));
-    width: 26vh; /* Zwiększenie szerokości panelu */
-    height: 100vh;
-    position: fixed;
-    top: 0;
-    left: 0;
     padding: var(--mantine-spacing-md);
     padding-bottom: 0;
     display: flex;
     text-align: left;
     flex-direction: column;
-    border-right: 1px solid light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));}
+    height: 90vh;
+}
 
 .header {
     padding: var(--mantine-spacing-md);
@@ -25,6 +21,7 @@
     flex: 1;
     margin-left: calc(var(--mantine-spacing-md) * -1);
     margin-right: calc(var(--mantine-spacing-md) * -1);
+
 }
 
 .linksInner {
@@ -38,6 +35,7 @@
     margin-left: calc(var(--mantine-spacing-md) * -1);
     margin-right: calc(var(--mantine-spacing-md) * -1);
     border-top: 1px solid light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
+
 }
 
 .link {

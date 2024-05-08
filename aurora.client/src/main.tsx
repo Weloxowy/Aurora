@@ -17,6 +17,7 @@ import EBanking from "./pages/EditData/EBanking/EBanking.tsx";
 import EPersonal from './pages/EditData/EPersonal/EPersonal.tsx';
 import Settings from './pages/Settings/Settings.tsx';
 import AllDocs from "./pages/DocumentsAndForms/Documents/AllDocs.tsx";
+import AllCompanyDocs from "./pages/DocumentsAndForms/CompanyDocs/AllCompanyDocs.tsx";
 
 // Tworzenie motywu Mantine
 const theme = createTheme({
@@ -51,6 +52,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
                 <Route path="/def" element={<DefaultForm />} />
                 <Route path="/yourdata" element={<EAddress/>} />
                 <Route path="/yourdocs" element={<AllDocs/>} />
+                <Route path="/firmdocs" element={<AllCompanyDocs/>} />
                 <Route path="/yourbanking" element={<EBanking/>} />
                 <Route path="/yourpersonal" element={<EPersonal/>} />
                 <Route path="/settings" element={<Settings/>} />
