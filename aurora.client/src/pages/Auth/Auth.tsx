@@ -107,7 +107,7 @@ export default function Auth(props) {
     }
 
     async function handleLogin() {
-        /*
+
         const url = "https://localhost:7071/login?useCookies=true&useSessionCookies=true";
         const data = {
 
@@ -127,7 +127,9 @@ export default function Auth(props) {
                 body: JSON.stringify(data),
             });
             if (!response.ok) {
-
+                if(response.status === 401){
+                    console.log("chuj123");
+                }
                 const errorMessage = await response.text();
                 throw new Error(`HTTP error! Status: ${response.status}, Message: ${errorMessage}`);
             } else {
@@ -137,7 +139,7 @@ export default function Auth(props) {
         } catch (error) {
             console.error('Error creating entity:', error);
         }
-        */
+
     }
     /*
     const [users, setUsers] = useState([]);

@@ -2,7 +2,7 @@
 
 namespace Aurora.Server.Persistence.AddressEntity.Database
 {
-    [Migration(202405030001)]
+    [Migration(001)]
     public class CreateTable_AddressEntity : Migration
     {
         public override void Up()

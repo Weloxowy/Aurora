@@ -8,8 +8,8 @@ import 'dayjs/locale/pl.js';
 import NewForm from "../FormsManagment/NewForm/NewForm.tsx";
 import {useDisclosure} from "@mantine/hooks";
 
-import Auth from "../../../pages/Auth/Auth.tsx";
 import TestModal from "../TestModal.tsx";
+import {modals} from "@mantine/modals";
 
 
 export default function HolidayCalendar() {
@@ -107,7 +107,13 @@ export default function HolidayCalendar() {
             <Group gap={"lg"}>
                 <Button rightSection={<IconRestore size={16} />} variant={"light"} size={"md"} onClick={ClearPicker}>Resetuj kalendarz</Button>
                 <Button rightSection={<IconFileArrowRight size={16} />} size={"md"} onClick={open}>Złóż wniosek</Button>
-                <Modal opened={opened} onClose={close} centered fullScreen style={{ position: 'absolute', top:'0%', left: '0%', right: '0%'}}>
+                <Modal size={'100vw'} opened={opened} onClose={close} centered shadow={"md"} style={{ position: 'absolute', top:'0%', left: '0%'}}
+                       overlayProps={{
+                           backgroundOpacity: 0.55,
+                           color: '#ffffff',
+                           blur: 6
+                       }}
+                >
                     <TestModal />
                 </Modal>
             </Group>

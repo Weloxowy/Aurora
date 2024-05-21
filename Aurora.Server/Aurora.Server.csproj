@@ -39,10 +39,4 @@
     </ProjectReference>
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Models\BankInfoEntity\" />
-    <Folder Include="Models\UnitsEntity\" />
-    <Folder Include="Models\SettingsInfoEntity\" />
-  </ItemGroup>
-
 </Project>

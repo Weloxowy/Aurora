@@ -1,5 +1,5 @@
 import {Navbar} from "../../layouts/Navbar/Navbar.tsx";
-import {AppShell, Burger, Flex, Group, Image, rem} from "@mantine/core";
+import {AppShell, Burger, Group, Image, rem} from "@mantine/core";
 import {useDisclosure} from "@mantine/hooks";
 import logo from "../../assets/LogoWithName.svg";
 import SettingsComponent from "../../features/Commons/Settings/SettingsComponent.tsx";

@@ -1,7 +1,7 @@
 ﻿using FluentMigrator;
 namespace Aurora.Server.Persistance.UserEntity.Database
 {
-    [Migration(202405030006)]
+    [Migration(010)]
     public class CreateTable_AspNetUsers : Migration
     {
         public override void Up()
@@ -28,9 +28,11 @@ namespace Aurora.Server.Persistance.UserEntity.Database
                 .WithColumn(nameof(Models.AspNetUsers.AspNetUsers.IsUserProfileActive)).AsBoolean().Nullable()
                 .WithColumn(nameof(Models.AspNetUsers.AspNetUsers.UserRank)).AsInt32().Nullable()
                 .WithColumn("AddressId").AsString().NotNullable()
-                .WithColumn("FamilyMemberId").AsString().NotNullable();
+                .WithColumn("FamilyMemberId").AsString().NotNullable()
+                .WithColumn("BankInfoEntityId").AsString().NotNullable();
             Create.ForeignKey("FK_User_Address").FromTable("AspNetUsers").ForeignColumn("AddressId").ToTable("AddressEntity").PrimaryColumn("Id");
             Create.ForeignKey("FK_User_FamilyMember").FromTable("AspNetUsers").ForeignColumn("FamilyMemberId").ToTable("FamilyMemberEntity").PrimaryColumn("Id");
+            Create.ForeignKey("FK_User_BankInfo").FromTable("AspNetUsers").ForeignColumn("BankInfoEntityId").ToTable("BankInfoEntity").PrimaryColumn("Id");
         }
 
         public override void Down()

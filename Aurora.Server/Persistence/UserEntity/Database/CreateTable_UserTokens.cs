@@ -2,7 +2,7 @@
 
 namespace Aurora.Server.Persistance.UserEntity.Database
 {
-    [Migration(202405030005)]
+    [Migration(008)]
     public class CreateTable_UserTokens : Migration
     {
         public override void Up()

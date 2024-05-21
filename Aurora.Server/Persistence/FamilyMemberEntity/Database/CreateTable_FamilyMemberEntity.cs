@@ -2,7 +2,7 @@
 
 namespace Aurora.Server.Persistence.FamilyMemberEntity.Database
 {
-    [Migration(202405030002)]
+    [Migration(003)]
     public class CreateTable_FamilyMemberEntity : Migration
     {
         public override void Up()
@@ -17,7 +17,10 @@ namespace Aurora.Server.Persistence.FamilyMemberEntity.Database
         }
         public override void Down()
         {
-            Delete.Table("FamilyMemberEntity");
+            if (Schema.Table("FamilyMemberEntity").Exists())
+            {
+                Delete.Table("FamilyMemberEntity");
+            };
         }
     }
 }

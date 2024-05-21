@@ -1,6 +1,0 @@
-.customTextInput input {
-    &::placeholder {
-        color: white;
-    }
-    color: white;
-}

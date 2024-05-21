@@ -10,7 +10,6 @@ import {MantineProvider, createTheme} from '@mantine/core';
 import Auth from './pages/Auth/Auth.tsx';
 import { Error } from "./pages/Error/Error.tsx";
 import Panel from "./pages/Panel/Panel.tsx";
-import DefaultForm from "./components/DefaultForm/DefaultForm.tsx";
 import HolidaySystem from './pages/HolidaySystem/HolidaySystem.tsx';
 import EAddress from './pages/EditData/EAddress/EAddress.tsx';
 import EBanking from "./pages/EditData/EBanking/EBanking.tsx";
@@ -21,7 +20,6 @@ import AllCompanyDocs from "./pages/DocumentsAndForms/CompanyDocs/AllCompanyDocs
 
 // Tworzenie motywu Mantine
 const theme = createTheme({
-
     primaryColor: 'blue',
     focusRing: 'auto',
     defaultRadius: 'md',
@@ -49,7 +47,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 
                 <Route path="/auth" element={<AuthWithBackground />} />
                 <Route path="/calendar" element={<HolidaySystem />} />
-                <Route path="/def" element={<DefaultForm />} />
                 <Route path="/yourdata" element={<EAddress/>} />
                 <Route path="/yourdocs" element={<AllDocs/>} />
                 <Route path="/firmdocs" element={<AllCompanyDocs/>} />

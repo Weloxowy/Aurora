@@ -2,7 +2,7 @@
 
 namespace Aurora.Server.Persistence.PersonalInfoEntity.Database
 {
-    [Migration(202405030003)]
+    [Migration(007)]
     public class CreateTable_PersonalInfoEntity : Migration
     {
         public override void Up()

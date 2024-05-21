@@ -11,7 +11,8 @@ import {
 } from '@mantine/core';
 import classes from './SettingsComponent.module.css';
 
-const SettingsComponent = ()=>{
+function SettingsComponent (){
+
     const { setColorScheme } = useMantineColorScheme();
     const sizing = useMantineTheme().fontSizes;
     const computedColorScheme = useComputedColorScheme('light', { getInitialValueInEffect: true });

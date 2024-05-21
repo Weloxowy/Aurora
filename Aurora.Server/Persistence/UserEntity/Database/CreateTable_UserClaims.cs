@@ -2,7 +2,7 @@
 
 namespace Aurora.Server.Persistance.AspNetUsers.Database
 {
-    [Migration(202405030004)]
+    [Migration(009)]
     public class CreateTable_UserClaims : Migration
     {
         public override void Down()
