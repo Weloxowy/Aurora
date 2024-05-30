@@ -1,9 +1,9 @@
 import {Navbar} from "../../layouts/Navbar/Navbar.tsx";
 import {AppShell, Burger, Group, Image, rem} from "@mantine/core";
-import MainPage from "../../features/Commons/Main/MainPage.tsx";
 import {useDisclosure} from "@mantine/hooks";
 import logo from "../../assets/LogoWithName.svg";
-export default function Panel(){
+import AllEmployeesComponent from "../../features/HR/Workers/AllEmployees.tsx";
+export default function AllEmployees(){
     const [opened, { toggle }] = useDisclosure();
     return(
         <AppShell
@@ -19,7 +19,7 @@ export default function Panel(){
                 w={{ base: '100vw',sm: 250, md: 250, lg: 300 }}
                 style={{
                     borderInlineEnd: 'calc(0.0625rem * var(--mantine-scale)) solid var(--app-shell-border-color)',
-                    '@media (max-width: 1300px)': {
+                    '@media (maxWidth: 1300px)': {
                         borderInlineEnd: 'none'
                     }
                 }}
@@ -34,7 +34,7 @@ export default function Panel(){
             </AppShell.Navbar>
             <AppShell.Main pt={rem(16)}>
                 <div>
-                    <MainPage />
+                    <AllEmployeesComponent />
                 </div>
             </AppShell.Main>
         </AppShell>

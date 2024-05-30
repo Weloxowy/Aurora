@@ -11,7 +11,7 @@ namespace Aurora.Server.Persistance.UserEntity.Database
                 .WithColumn("UserName").AsString().Nullable()
                 .WithColumn("NormalizedUserName").AsString().Nullable()
                 .WithColumn("Email").AsString().Nullable()
-                .WithColumn("NormalizedEmail").AsString().Nullable()
+                .WithColumn("NormalizedEmail").AsString().Nullable().Unique()
                 .WithColumn("EmailConfirmed").AsBoolean().Nullable()
                 .WithColumn("PasswordHash").AsString().Nullable()
                 .WithColumn("SecurityStamp").AsString().Nullable()
@@ -27,9 +27,9 @@ namespace Aurora.Server.Persistance.UserEntity.Database
                 .WithColumn(nameof(Models.AspNetUsers.AspNetUsers.Password)).AsString().Nullable()
                 .WithColumn(nameof(Models.AspNetUsers.AspNetUsers.IsUserProfileActive)).AsBoolean().Nullable()
                 .WithColumn(nameof(Models.AspNetUsers.AspNetUsers.UserRank)).AsInt32().Nullable()
-                .WithColumn("AddressId").AsString().NotNullable()
-                .WithColumn("FamilyMemberId").AsString().NotNullable()
-                .WithColumn("BankInfoEntityId").AsString().NotNullable();
+                .WithColumn("AddressId").AsString().Nullable()
+                .WithColumn("FamilyMemberId").AsString().Nullable()
+                .WithColumn("BankInfoEntityId").AsString().Nullable();
             Create.ForeignKey("FK_User_Address").FromTable("AspNetUsers").ForeignColumn("AddressId").ToTable("AddressEntity").PrimaryColumn("Id");
             Create.ForeignKey("FK_User_FamilyMember").FromTable("AspNetUsers").ForeignColumn("FamilyMemberId").ToTable("FamilyMemberEntity").PrimaryColumn("Id");
             Create.ForeignKey("FK_User_BankInfo").FromTable("AspNetUsers").ForeignColumn("BankInfoEntityId").ToTable("BankInfoEntity").PrimaryColumn("Id");

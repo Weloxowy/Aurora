@@ -1,6 +1,6 @@
 import {Button, Group, Menu, Modal, rem, Table, Tabs, Text, Title} from "@mantine/core";
 import {IconFileArrowRight, IconFileImport, IconFilePlus, IconRestore, IconSettings} from "@tabler/icons-react";
-import TestModal from "../../TestModal.tsx";
+import TestModal from "../../NewFileModal1.tsx";
 import {useState} from "react";
 
 const elements = [

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState } from "react";
 import { useToggle } from '@mantine/hooks';
 import { useForm } from '@mantine/form';
 import {
@@ -8,17 +8,19 @@ import {
     Paper,
     Group,
     Button,
-    Divider,
     Checkbox,
     Anchor,
-    Stack, BackgroundImage, Space, useMantineTheme,
+    Stack,
+    useMantineTheme,
 } from '@mantine/core';
 import './Auth.css';
 import '@mantine/core/styles.css';
 import './Auth.css';
 import {IconArrowBackUp} from "@tabler/icons-react";
-/*import { checkUserLoggedIn } from "../../features/getCookies/getCookies";
-*/
+import { checkUserLoggedIn } from "../features/getCookies";
+import handleLogin from "../../functions/Auth/Login/Login.tsx";
+import handleRegister from "../../functions/Auth/Register/Register.tsx";
+
 
 export default function Auth(props) {
     const [formType, toggleType] = useToggle(['login', 'register']);
@@ -33,7 +35,7 @@ export default function Auth(props) {
         },
         validate: {
             email: (val) => (/^\S+@\S+$/.test(val) ? null : 'Invalid email'),
-            password: (val) => (val.length <= 4 ? 'Password should include at least 4 characters' : null),
+            password: (val) => (val.length <= 8 ? 'Password should include at least 8 characters' : null),
         },
     });
 
@@ -49,139 +51,6 @@ export default function Auth(props) {
 
     const [error, setError] = useState(""); // Stan przechowuj�cy komunikat o b��dzie
 
-    async function handleRegister() {
-        /*
-        const checkEmailUrl = "https://localhost:7071/api/AspNetUsers/checkEmail/" + form.values.email;
-        const registerUrl = "https://localhost:7071/api/AspNetUsers/registerCustom";
-
-        try {
-            // Sprawd�, czy email ju� istnieje w bazie danych
-            const emailResponse = await fetch(checkEmailUrl, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-
-            if (!emailResponse.ok) {
-                const errorMessage = await emailResponse.text();
-                throw new Error(`HTTP error! Status: ${emailResponse.status}, Message: ${errorMessage}`);
-            }
-
-            const emailExists = await emailResponse.json();
-
-            if (emailExists) {
-                setError("Podany adres email ju� istnieje w bazie danych.");
-                return;
-            }
-
-            // Je�li email nie istnieje, zarejestruj u�ytkownika
-            const registerData = {
-                FirstName: form.values.firstName,
-                LastName: form.values.lastName,
-                Email: form.values.email,
-                PasswordHash: form.values.password,
-            };
-
-            const registerResponse = await fetch(registerUrl, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(registerData),
-            });
-
-            if (!registerResponse.ok) {
-                const errorMessage = await registerResponse.text();
-                throw new Error(`HTTP error! Status: ${registerResponse.status}, Message: ${errorMessage}`);
-            }
-
-            // Je�li rejestracja zako�czy�a si� powodzeniem, przeprowad� logowanie
-            await handleLogin();
-            window.location.href = "/";
-
-        } catch (error) {
-            console.error('Error during registration:', error);
-        }
-         */
-    }
-
-    async function handleLogin() {
-
-        const url = "https://localhost:7071/login?useCookies=true&useSessionCookies=true";
-        const data = {
-
-            email: form.values.email,
-            password: form.values.password
-        }
-
-        try {
-            const response = await fetch(url, {
-                credentials: 'include',
-                method: 'POST',
-                headers: {
-                    'Content-Type':
-                        'application/json',
-                    'Cookie': 'cookieName=cookieValue'
-                },
-                body: JSON.stringify(data),
-            });
-            if (!response.ok) {
-                if(response.status === 401){
-                    console.log("chuj123");
-                }
-                const errorMessage = await response.text();
-                throw new Error(`HTTP error! Status: ${response.status}, Message: ${errorMessage}`);
-            } else {
-                window.location.href = "/";
-            }
-
-        } catch (error) {
-            console.error('Error creating entity:', error);
-        }
-
-    }
-    /*
-    const [users, setUsers] = useState([]);
-
-    const headers = {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'POST,OPTIONS'
-    }
-    async function getCookies() {
-        const response = await fetch("https://localhost:7142/api/AspNetUsers/info", {
-            credentials: 'include',
-            headers: {
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Credentials': 'true'
-            }
-
-        });
-
-        if (response.ok) {
-
-            return true;
-        } else {
-
-            return false;
-        }
-
-
-    }
-    useEffect(() => {
-        const checkCookies = async () => {
-            const isLoggedIn = await checkUserLoggedIn();
-            if (isLoggedIn) {
-                window.location.href = "/main";
-            } else {
-
-            }
-        };
-
-    }, []);
-    */
     async function gotoMain(){
         window.location.href = "/panel";
     }
@@ -256,7 +125,7 @@ export default function Auth(props) {
                                 : "Nie posiadasz konta? Zarejestruj się"}
                         </Anchor>
                         <Button type="submit" radius="xl"
-                                onClick={/*type === 'register' ? handleRegister : handleLogin*/ gotoMain}>
+                                onClick={formType === 'register' ? () => handleRegister(form) :  () => handleLogin(form)}>
                             {formType === 'register' ? "Rejestracja" : "Logowanie"}
                         </Button>
                     </Group>

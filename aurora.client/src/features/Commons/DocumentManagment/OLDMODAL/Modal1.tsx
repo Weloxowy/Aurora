@@ -9,16 +9,21 @@ import {
     Fieldset,
     Divider,
     rem,
-    NativeSelect,
     Grid, Progress, Button, Modal
 } from "@mantine/core";
-import img from "../../assets/img.png"
+import img from "../../../../assets/img.png"
 import {IconFileArrowRight, IconRestore} from "@tabler/icons-react";
 import {useDisclosure} from "@mantine/hooks";
-import TestModal2 from "./TestModal2.tsx";
 import  "./TestModal.css";
-export default function TestModal(){
-    const [opened, { open, close }] = useDisclosure();
+import Modal2 from "./Modal2.tsx";
+export default function Modal1({closeParentModal}){
+    const [opened, { open, close }] = useDisclosure(false);
+
+    const closeModal2 = () => {
+        close();
+        closeParentModal();
+    };
+
     return(
         <>
         <Title>Wniosek urlopowy | Aleksander Wiech</Title>
@@ -48,7 +53,7 @@ export default function TestModal(){
                                blur: 6
                            }}
                     >
-                        <TestModal2 />
+                        <Modal2 closeParentModal={closeModal2}  />
                     </Modal>
                 </Paper>
             </GridCol>

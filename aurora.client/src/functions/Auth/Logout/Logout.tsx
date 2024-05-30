@@ -1,6 +1,9 @@
+import {notifications} from "@mantine/notifications";
+import {IconX} from "@tabler/icons-react";
+
 export async function logout() {
     try {
-        const response = await fetch("https://localhost:7071/api/AspNetUsers/logout", {
+        const response = await fetch("https://localhost:7287/api/UserEntity/logout", {
             credentials: 'include',
             headers: {
                 'Content-Type': 'application/json',
@@ -8,9 +11,19 @@ export async function logout() {
                 'Access-Control-Allow-Credentials': 'true'
             }
         });
+
     }
     catch(error){
-        console.error("err");
+        notifications.show({
+            id: 'logout-error',
+            withCloseButton: true,
+            autoClose: 5000,
+            title: 'Błąd wylogowywania',
+            message: 'Nie zostałeś pomyślnie wylogowany. Spróbuj ponownie za chwilę.',
+            color: 'red',
+            icon: <IconX />,
+            loading: false,
+        });
     }
     finally {
         window.location.href = "/auth";

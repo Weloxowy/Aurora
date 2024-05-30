@@ -5,6 +5,14 @@ using Aurora.Server.Models.AspNetUsers;
 using NHibernate.Tool.hbm2ddl;
 using static NHibernate.Impl.CriteriaImpl;
 using Aurora.Server.Models.AddressEntity;
+using Aurora.Server.Models.BankInfoEntity;
+using Aurora.Server.Models.DepartmentEntity;
+using Aurora.Server.Controllers.DepartmentRoleEntity;
+using Aurora.Server.Models.DepartmentRoleEntity;
+using Aurora.Server.Models.FamilyMemberEntity;
+using Aurora.Server.Models.FileEntity;
+using Aurora.Server.Models.PersonalInfoEntity;
+using Aurora.Server.Models.RoleEntity;
 
 namespace Aurora.Server
 {
@@ -33,7 +41,19 @@ namespace Aurora.Server
                         .Mappings(m =>
                             m.FluentMappings.AddFromAssemblyOf<AspNetUsers>().AddFromAssemblyOf<UserRank>())
                         .Mappings(m =>
-                            m.FluentMappings.AddFromAssemblyOf<AddressEntity>().AddFromAssemblyOf<UserRank>())
+                            m.FluentMappings.AddFromAssemblyOf<AddressEntity>())
+                        .Mappings(m =>
+                            m.FluentMappings.AddFromAssemblyOf<BankInfoEntity>())
+                        .Mappings(m =>
+                            m.FluentMappings.AddFromAssemblyOf<DepartmentEntity>())
+                        .Mappings(m =>
+                            m.FluentMappings.AddFromAssemblyOf<DepartmentRoleEntity>())
+                        .Mappings(m =>
+                            m.FluentMappings.AddFromAssemblyOf<FamilyMemberEntity>())
+                        .Mappings(m =>
+                            m.FluentMappings.AddFromAssemblyOf<PersonalInfoEntity>().AddFromAssemblyOf<TypeOfContract>())
+                        .Mappings(m =>
+                            m.FluentMappings.AddFromAssemblyOf<RoleEntity>())
                         .ExposeConfiguration(cfg => new SchemaUpdate(cfg).Execute(false, true))
                         .BuildSessionFactory();
                 }

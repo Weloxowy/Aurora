@@ -23,8 +23,8 @@ namespace Aurora.Server.Models.AspNetUsers
         public virtual string? Password { get; set; }
         public virtual bool? IsUserProfileActive { get; set; }
         public virtual UserRank? UserRank { get; set; }
-        public virtual Guid AddressId { get; set; }
-        public virtual Guid FamilyMemberId { get; set; }
-        public virtual Guid BankInfoEntityId { get; set; }
+        public virtual Guid? AddressId { get; set; }
+        public virtual Guid? FamilyMemberId { get; set; }
+        public virtual Guid? BankInfoEntityId { get; set; }
     }
 }

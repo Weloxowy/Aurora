@@ -17,6 +17,13 @@ import EPersonal from './pages/EditData/EPersonal/EPersonal.tsx';
 import Settings from './pages/Settings/Settings.tsx';
 import AllDocs from "./pages/DocumentsAndForms/Documents/AllDocs.tsx";
 import AllCompanyDocs from "./pages/DocumentsAndForms/CompanyDocs/AllCompanyDocs.tsx";
+import { ModalsProvider } from '@mantine/modals';
+import { Notifications } from '@mantine/notifications';
+
+import '@mantine/dropzone/styles.css';
+import '@mantine/notifications/styles.css';
+import AllEmployees from "./pages/AllEmployees/AllEmployees.tsx";
+import AllDepartments from "./pages/AllDepartments/AllDepartments.tsx";
 
 // Tworzenie motywu Mantine
 const theme = createTheme({
@@ -40,21 +47,25 @@ function AuthWithBackground() {
 // @ts-ignore
 ReactDOM.createRoot(document.getElementById('root')).render(
     <MantineProvider theme={theme} defaultColorScheme="auto">
-        <BrowserRouter>
-            <Routes>
-                <Route path="/*" element={<Error />} />
-                <Route path="/" element={<Panel />} />
-
-                <Route path="/auth" element={<AuthWithBackground />} />
-                <Route path="/calendar" element={<HolidaySystem />} />
-                <Route path="/yourdata" element={<EAddress/>} />
-                <Route path="/yourdocs" element={<AllDocs/>} />
-                <Route path="/firmdocs" element={<AllCompanyDocs/>} />
-                <Route path="/yourbanking" element={<EBanking/>} />
-                <Route path="/yourpersonal" element={<EPersonal/>} />
-                <Route path="/settings" element={<Settings/>} />
-            </Routes>
-        </BrowserRouter>
+        <ModalsProvider>
+            <Notifications />
+            <BrowserRouter>
+                <Routes>
+                    <Route path="/*" element={<Error />} />
+                    <Route path="/" element={<Panel />} />
+                    <Route path="/auth" element={<AuthWithBackground />} />
+                    <Route path="/calendar" element={<HolidaySystem />} />
+                    <Route path="/yourdata" element={<EAddress/>} />
+                    <Route path="/yourdocs" element={<AllDocs/>} />
+                    <Route path="/firmdocs" element={<AllCompanyDocs/>} />
+                    <Route path="/yourbanking" element={<EBanking/>} />
+                    <Route path="/yourpersonal" element={<EPersonal/>} />
+                    <Route path="/settings" element={<Settings/>} />
+                    <Route path="/allemp" element={<AllEmployees/>} />
+                    <Route path="/alldep" element={<AllDepartments/>} />
+                </Routes>
+            </BrowserRouter>
+        </ModalsProvider>
     </MantineProvider>
 );
 

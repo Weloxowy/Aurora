@@ -32,3 +32,6 @@ body {
   background-position: center;
 }
 
+input::-ms-reveal{  /*ukrywanie wbudowanego guzika pokaż hasło dla MS Edge */
+  display:none;
+}

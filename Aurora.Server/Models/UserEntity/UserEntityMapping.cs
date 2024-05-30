@@ -20,7 +20,7 @@ namespace Aurora.Server.Models.AspNetUsers
                 Map(x => x.UserName);
                 Map(x => x.NormalizedUserName);
                 Map(x => x.Email);
-                Map(x => x.NormalizedEmail);
+                Map(x => x.NormalizedEmail).Unique();
                 Map(x => x.EmailConfirmed);
                 Map(x => x.PasswordHash);
                 Map(x => x.SecurityStamp);

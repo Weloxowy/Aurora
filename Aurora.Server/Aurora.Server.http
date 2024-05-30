@@ -1,6 +1,6 @@
-@Aurora.Server_HostAddress = http://localhost:5260
+@Aurora.Server_HostAddress = http://localhost:7287
 
-GET {{Aurora.Server_HostAddress}}/weatherforecast/
+GET {{Aurora.Server_HostAddress}}/api/RoleEntity/
 Accept: application/json
 
 ###

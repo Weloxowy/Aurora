@@ -10,10 +10,14 @@ import {useDisclosure} from "@mantine/hooks";
 
 import TestModal from "../TestModal.tsx";
 import {modals} from "@mantine/modals";
+import Modal1 from "../DocumentManagment/OLDMODAL/Modal1.tsx";
 
 
 export default function HolidayCalendar() {
-    const [opened, { open, close }] = useDisclosure();
+    const [opened, setOpened] = useState(false);
+
+    const openModal1 = () => setOpened(true);
+    const closeModal1 = () => setOpened(false);
 
     const [value, setValue] = useState<[Date | null, Date | null]>([null, null]);
     const theme = MantineThemeProvider;
@@ -74,7 +78,7 @@ export default function HolidayCalendar() {
                 type="range"
                 value={value}
                 onChange={setValue}
-                minDate={new Date(2024, 5, 20)}
+                minDate={new Date(2024, 6, 2)}
                 maxDate={new Date(2024, 7, 31)}
                 defaultDate={new Date(2024, 5, 20)}
                 classNames={{
@@ -106,15 +110,15 @@ export default function HolidayCalendar() {
         </DatesProvider>
             <Group gap={"lg"}>
                 <Button rightSection={<IconRestore size={16} />} variant={"light"} size={"md"} onClick={ClearPicker}>Resetuj kalendarz</Button>
-                <Button rightSection={<IconFileArrowRight size={16} />} size={"md"} onClick={open}>Złóż wniosek</Button>
-                <Modal size={'100vw'} opened={opened} onClose={close} centered shadow={"md"} style={{ position: 'absolute', top:'0%', left: '0%'}}
+                <Button rightSection={<IconFileArrowRight size={16} />} size={"md"} onClick={openModal1}>Złóż wniosek</Button>
+                <Modal size={'100vw'} opened={opened} onClose={closeModal1} centered shadow={"md"} style={{ position: 'absolute', top:'0%', left: '0%'}}
                        overlayProps={{
                            backgroundOpacity: 0.55,
                            color: '#ffffff',
                            blur: 6
                        }}
                 >
-                    <TestModal />
+                    <Modal1  closeParentModal={closeModal1}/>
                 </Modal>
             </Group>
         </Flex>
