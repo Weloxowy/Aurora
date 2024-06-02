@@ -6,7 +6,7 @@ namespace Aurora.Server.Models.FileEntity
     {
         public FileEntity(): base() { }
 
-        public FileEntity(Guid id, Guid senderId, Guid[] recieversId, string description, string typeOfDocument, string[] tags, FileStatus status, DateTime createDate, string language)
+        public FileEntity(Guid id, string senderId, string recieversId, string description, string typeOfDocument, string tags, FileStatus status, DateTime createDate, string language)
         {
             Id = id;
             SenderId = senderId;
@@ -20,11 +20,11 @@ namespace Aurora.Server.Models.FileEntity
         }
 
         public virtual Guid Id { get; set; }
-        public virtual Guid SenderId { get; set; }
-        public virtual Guid[] RecieversId { get; set; }
+        public virtual string SenderId { get; set; }
+        public virtual string RecieversId { get; set; }
         public virtual string Description { get; set; }
         public virtual string TypeOfDocument { get; set; }
-        public virtual string[]? Tags { get; set; }
+        public virtual string? Tags { get; set; }
         public virtual FileStatus Status { get; set; }
         public virtual DateTime CreateDate { get; set; }
         public virtual string Language { get; set; }

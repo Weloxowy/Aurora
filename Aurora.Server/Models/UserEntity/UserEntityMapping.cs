@@ -16,6 +16,7 @@ namespace Aurora.Server.Models.AspNetUsers
                 Map(x => x.AddressId);
                 Map(x => x.FamilyMemberId);
                 Map(x => x.BankInfoEntityId);
+                Map(x => x.PersonalInfoEntityId);
 
                 Map(x => x.UserName);
                 Map(x => x.NormalizedUserName);

@@ -1,7 +1,6 @@
 import {Button, Group, Menu, Modal, rem, Table, Tabs, Text, Title} from "@mantine/core";
-import {IconFileArrowRight, IconFileImport, IconFilePlus, IconRestore, IconSettings} from "@tabler/icons-react";
 import {useEffect, useState} from "react";
-import {GetAllWorkers} from "../../../functions/Users/GetAllWorkers.tsx";
+import GetAllUsersData from "../../../functions/Auth/GetAllUserData/GetAllUsersData.tsx";
 
 const AllEmployeesComponent = () => {
     const [workers, setWorkers] = useState([]);
@@ -10,7 +9,7 @@ const AllEmployeesComponent = () => {
     useEffect(() => {
         const fetchWorkers = async () => {
             try {
-                const data = await GetAllWorkers();
+                const data = await GetAllUsersData();
                 setWorkers(data);
             } catch (err : any) {
                 console.log(err.message);
@@ -23,12 +22,14 @@ const AllEmployeesComponent = () => {
     }, []);
 
     const rows = workers.map((element) => (
-        <Table.Tr key={element.id}>
-            <Table.Td>{element.firstName}</Table.Td>
-            <Table.Td>{element.lastName}</Table.Td>
-            <Table.Td>{element.email}</Table.Td>
-            <Table.Td>{element.phoneNumber}</Table.Td>
-            <Table.Td style={{ display: 'none' }}>{element.userRank}</Table.Td>
+        <Table.Tr key={element.userId}>
+            <Table.Td>{element.firstName ?? 'N/A'}</Table.Td>
+            <Table.Td>{element.lastName ?? 'N/A'}</Table.Td>
+            <Table.Td>{element.email ?? 'N/A'}</Table.Td>
+            <Table.Td>{element.hireDate ?? 'N/A'}</Table.Td>
+            <Table.Td>{element.fireDate ?? 'N/A'}</Table.Td>
+            <Table.Td>{element.department ?? 'N/A'}</Table.Td>
+            <Table.Td>{element.position ?? 'N/A'}</Table.Td>
         </Table.Tr>
     ));
 
@@ -49,12 +50,13 @@ const AllEmployeesComponent = () => {
                     <Table stickyHeader stickyHeaderOffset={30}>
                         <Table.Thead>
                             <Table.Tr>
-                                <Table.Th>Nazwa wniosku</Table.Th>
-                                <Table.Th>Data wysłania</Table.Th>
-                                <Table.Th>Data akceptacji</Table.Th>
-                                <Table.Th>Akceptująca osoba</Table.Th>
-                                <Table.Th>Cel wniosku</Table.Th>
-                                <Table.Th>Stan wniosku</Table.Th>
+                                <Table.Th>Imie</Table.Th>
+                                <Table.Th>Nazwisko</Table.Th>
+                                <Table.Th>Adres email</Table.Th>
+                                <Table.Th>Data zatrudnienia</Table.Th>
+                                <Table.Th>Data zwolnienia</Table.Th>
+                                <Table.Th>Departament</Table.Th>
+                                <Table.Th>Stanowisko</Table.Th>
                             </Table.Tr>
                         </Table.Thead>
                         <Table.Tbody>{rows}</Table.Tbody>
@@ -65,12 +67,13 @@ const AllEmployeesComponent = () => {
                     <Table stickyHeader stickyHeaderOffset={30}>
                         <Table.Thead>
                             <Table.Tr>
-                                <Table.Th>Nazwa wniosku</Table.Th>
-                                <Table.Th>Data wysłania</Table.Th>
-                                <Table.Th>Data akceptacji</Table.Th>
-                                <Table.Th>Akceptująca osoba</Table.Th>
-                                <Table.Th>Cel wniosku</Table.Th>
-                                <Table.Th>Stan wniosku</Table.Th>
+                                <Table.Th>Imie</Table.Th>
+                                <Table.Th>Nazwisko</Table.Th>
+                                <Table.Th>Aktualny pracownik</Table.Th>
+                                <Table.Th>Data zatrudnienia</Table.Th>
+                                <Table.Th>Data zwolnienia</Table.Th>
+                                <Table.Th>Departament</Table.Th>
+                                <Table.Th>Stanowisko</Table.Th>
                             </Table.Tr>
                         </Table.Thead>
                         <Table.Tbody>{rows}</Table.Tbody>
@@ -83,12 +86,13 @@ const AllEmployeesComponent = () => {
                     <Table stickyHeader stickyHeaderOffset={30}>
                         <Table.Thead>
                             <Table.Tr>
-                                <Table.Th>Nazwa wniosku</Table.Th>
-                                <Table.Th>Data wysłania</Table.Th>
-                                <Table.Th>Data akceptacji</Table.Th>
-                                <Table.Th>Akceptująca osoba</Table.Th>
-                                <Table.Th>Cel wniosku</Table.Th>
-                                <Table.Th>Stan wniosku</Table.Th>
+                                <Table.Th>Imie</Table.Th>
+                                <Table.Th>Nazwisko</Table.Th>
+                                <Table.Th>Aktualny pracownik</Table.Th>
+                                <Table.Th>Data zatrudnienia</Table.Th>
+                                <Table.Th>Data zwolnienia</Table.Th>
+                                <Table.Th>Departament</Table.Th>
+                                <Table.Th>Stanowisko</Table.Th>
                             </Table.Tr>
                         </Table.Thead>
                         {/*
@@ -105,12 +109,13 @@ const AllEmployeesComponent = () => {
                     <Table stickyHeader stickyHeaderOffset={30}>
                         <Table.Thead>
                             <Table.Tr>
-                                <Table.Th>Nazwa wniosku</Table.Th>
-                                <Table.Th>Data wysłania</Table.Th>
-                                <Table.Th>Data akceptacji</Table.Th>
-                                <Table.Th>Akceptująca osoba</Table.Th>
-                                <Table.Th>Cel wniosku</Table.Th>
-                                <Table.Th>Stan wniosku</Table.Th>
+                                <Table.Th>Imie</Table.Th>
+                                <Table.Th>Nazwisko</Table.Th>
+                                <Table.Th>Aktualny pracownik</Table.Th>
+                                <Table.Th>Data zatrudnienia</Table.Th>
+                                <Table.Th>Data zwolnienia</Table.Th>
+                                <Table.Th>Departament</Table.Th>
+                                <Table.Th>Stanowisko</Table.Th>
                             </Table.Tr>
                         </Table.Thead>
                         {/*

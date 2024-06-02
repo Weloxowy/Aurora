@@ -5,7 +5,7 @@ namespace Aurora.Server.Models.AspNetUsers
     public class AspNetUsers : IdentityUser
     {
         public AspNetUsers() : base() { }
-        public AspNetUsers(Guid id, string FirstName, string LastName, string Password, bool isUserProfileActiver, UserRank userRank, Guid addressId, Guid familyMemberId, Guid bankInfoEntityId) 
+        public AspNetUsers(Guid id, string FirstName, string LastName, string Password, bool isUserProfileActiver, UserRank userRank, Guid addressId, Guid familyMemberId, Guid bankInfoEntityId, Guid personalInfoEntityId) 
         {
             this.FirstName = FirstName;
             this.LastName = LastName;
@@ -15,6 +15,7 @@ namespace Aurora.Server.Models.AspNetUsers
             this.AddressId = addressId;
             this.FamilyMemberId = familyMemberId;
             this.BankInfoEntityId = bankInfoEntityId;
+            this.PersonalInfoEntityId = personalInfoEntityId;
         }
 
 
@@ -26,5 +27,6 @@ namespace Aurora.Server.Models.AspNetUsers
         public virtual Guid? AddressId { get; set; }
         public virtual Guid? FamilyMemberId { get; set; }
         public virtual Guid? BankInfoEntityId { get; set; }
+        public virtual Guid? PersonalInfoEntityId { get; set; }
     }
 }

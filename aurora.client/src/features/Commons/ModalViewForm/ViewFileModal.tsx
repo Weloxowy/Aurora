@@ -11,20 +11,23 @@ import {
     Button,
     Modal, Select
 } from "@mantine/core";
-import {IconArrowBack, IconArrowLeft, IconArrowRight, IconFileArrowRight} from "@tabler/icons-react";
+import {
+    IconArrowBack,
+    IconArrowLeft,
+    IconArrowRight,
+    IconFileArrowRight,
+    IconFileChart,
+    IconFileCheck, IconFileDislike, IconFileX
+} from "@tabler/icons-react";
 import { useDisclosure } from "@mantine/hooks";
-import "./TestModal.css";
-import NewFileModal4 from "./NewFileModal4";
 import { useCallback, useEffect, useState } from 'react';
 import { pdfjs, Document, Page } from 'react-pdf';
 import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
 import 'react-pdf/dist/esm/Page/TextLayer.css';
 import type { PDFDocumentProxy } from 'pdfjs-dist';
 import { User } from "../../../classes/User/User.ts";
-import CheckAuthState from "../../../functions/Auth/CheckAuthState/CheckAuthState.tsx";
-import CheckUserRank from "../../../functions/Auth/CheckUserRank/CheckUserRank.tsx";
-import {GetAllWorkers} from "../../../functions/Users/GetAllWorkers.tsx";
-import POSTNewDocument from "../../../functions/FormsAndDocuments/POSTNewDocument/POSTNewDocument.tsx";
+import GETDocumentDetails from "../../../functions/FormsAndDocuments/GETDocumentDetails/GETDocumentDetails.ts";
+import ChangeDocumentStatus from "../../../functions/FormsAndDocuments/ChangeDocumentStatus/ChangeDocumentStatus.tsx";
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
     'pdfjs-dist/build/pdf.worker.min.mjs',
     import.meta.url,
@@ -39,48 +42,88 @@ const maxWidth = 550;
 
 type PDFFile = string | File | null;
 
-interface NewFileModal3Props {
-    closeParentModal: () => void;
-    chosenDocType: string;
-    file: PDFFile;
+interface ViewFileModal {
+    id: string;
 }
 
-export default function NewFileModal3({ closeParentModal, chosenDocType, file }: NewFileModal3Props) {
+export default function ViewFileModal({id} : ViewFileModal) {
     const [opened, { open, close }] = useDisclosure(false);
-    const [pdfData, setPdfData] = useState<PDFFile>(file);
+    const [fileData, setFileData] = useState<PDFFile>(null);
     const [numPages, setNumPages] = useState<number>();
     const [pageNumber, setPageNumber] = useState(1);
     const [containerRef, setContainerRef] = useState<HTMLElement | null>(null);
     const [containerWidth, setContainerWidth] = useState<number>();
-    const [hrWorkers, setHrWorkers] = useState([]);
+    const [details, setDetails] = useState([]);
     const [selectedReceiverId, setSelectedReceiverId] = useState<string | null>(null);
-    const userInstance = User.getInstance();
+    const [decision, setDecision] = useState(true);
     const onResize = useCallback<ResizeObserverCallback>((entries) => {
         const [entry] = entries;
         if (entry) {
             setContainerWidth(entry.contentRect.width);
         }
     }, []);
+/*
+    useEffect(() => {
+        const fetchDetails = async () => {
+            try {
+                const det = await GETDocumentDetails(id);
+                console.log(det);
+                setDetails(det);
+                //setPdfData(det.fileItem);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+        fetchDetails();
+    }, [id]);
 
+ /*   useEffect(() => {
+        const fetchDetails = async () => {
+            try {
+                const det = await GETDocumentDetails(id);
+                console.log(det);
+                setDetails(det);
 
+                if (det.fileItem && !det.fileItem.startsWith('data:')) {
+                    // If fileItem is a URL, set it directly
+                    setPdfData(det.fileItem);
+                }
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+        fetchDetails();
+    }, [id]);
+*/
+
+    const handleFileData = (base64data) => {
+        setFileData(base64data);
+    }
+
+    // Wywołanie funkcji pobierającej dane z serwera
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const workers = await GetAllWorkers();
-                const filteredWorkers = workers
-                    .filter(worker => worker.userRank === 2)
-                    .map(worker => ({
-                        id: worker.id,
-                        firstName: worker.firstName,
-                        lastName: worker.lastName
-                    }));
-                setHrWorkers(filteredWorkers);
+                const data = await GETDocumentDetails(id);
+                setDetails(data);
+                (data.status === 0 || data.status === 3) ? setDecision(true) : setDecision(false);
+                const fileData = await fetch(data.fileItem);
+                const fileBlob = await fileData.blob();
+                const reader = new FileReader();
+                reader.readAsDataURL(fileBlob);
+                reader.onloadend = function() {
+                    const base64data = reader.result;
+                    handleFileData(base64data);
+                }
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
         };
         fetchData();
-    }, []);
+    }, [id]);
+
+
+
 
     useEffect(() => {
         if (containerRef) {
@@ -90,34 +133,9 @@ export default function NewFileModal3({ closeParentModal, chosenDocType, file }:
         }
     }, [containerRef, onResize]);
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                if (typeof file === 'string') {
-                    const response = await fetch(file); // Fetch PDF file
-                    const data = await response.blob(); // Convert response to Blob
-                    setPdfData(data); // Set PDF data in state
-                } else if (file instanceof File) {
-                    setPdfData(file); // If file is already a File object, set it directly
-                }
-            } catch (error) {
-                console.error('Error fetching PDF file:', error);
-            }
-        };
-
-        if (file) {
-            fetchData(); // Fetch PDF file when file prop is provided
-        }
-    }, [file]);
-
-    const selectData = hrWorkers.map(worker => ({
-        value: worker.id.toString(),
-        label: `${worker.firstName} ${worker.lastName}`
-    }));
-
     const closeModal4 = () => {
         close();
-        closeParentModal();
+        //closeParentModal(); //odkomentować gdy dodam modal potwierdzenia
     };
     function onDocumentLoadSuccess({ numPages: nextNumPages }: PDFDocumentProxy): void {
         setNumPages(nextNumPages);
@@ -130,35 +148,25 @@ export default function NewFileModal3({ closeParentModal, chosenDocType, file }:
         setPageNumber((prevPageNumber) => Math.min(prevPageNumber + 1, numPages || 1));
     };
 
-    const data = {
-        senderId: userInstance.userId,
-        recieversId : selectedReceiverId,
-        description: "string",
-        typeOfDocument: chosenDocType,
-        tags: "string",
-        status: 0,
-        createDate: "2024-05-31T23:24:18.701Z",
-        language: "string",
-        fileItem: file,
-        inputData: "string"
-    };
-
-    const handleOpen = () =>{
-        console.log(data);
-        POSTNewDocument(data);
-        open();
+    const handleNegative = () =>{
+        ChangeDocumentStatus(details,false);
+        //open();
+    }
+    const handlePositive = () =>{
+        ChangeDocumentStatus(details,false);
+       // open();
     }
     return (
         <>
             <Title>Wniosek urlopowy | Aleksander Wiech</Title>
             <Text /* tego wiersza nie dawać przy tworzeniu wnioskow */>
-                Wniosek Odbiorca: Anna Kolas | Dział Kadr
+                Odbiorca: {details.rFirstName + ' '+details.rLastName} | {details.rDepartment}
             </Text>
             <Grid style={{ width: 'max-content'}} grow gutter="lg">
                 <GridCol span={4}>
                     <div ref={setContainerRef} style={{alignItems: 'center'}}>
-                        {pdfData && (
-                            <Document file={file} onLoadSuccess={onDocumentLoadSuccess} options={options}>
+                        {fileData && (
+                            <Document file={fileData} onLoadSuccess={onDocumentLoadSuccess} options={options}>
                                 <Page
                                     key={`page_${pageNumber}`}
                                     pageNumber={pageNumber}
@@ -183,34 +191,20 @@ export default function NewFileModal3({ closeParentModal, chosenDocType, file }:
                         <Title>Szczegóły dokumentu</Title>
                         <Text>Tutaj pojawią się najważniejsze informacje. Sprawdź ich poprawność, a w razie konieczności
                             dokonaj korekty.</Text>
-                        <TextInput label="Imię i nazwisko" disabled placeholder={userInstance.firstName+' '+userInstance.lastName}/>
-                        <TextInput label="Dział" placeholder={userInstance.department}/>
-                        <TextInput label="Cel dokumentu" placeholder={chosenDocType} disabled/>
+                        <TextInput label="Imię i nazwisko" disabled placeholder={details.sFirstName + ' '+details.sLastName}/>
+                        <TextInput label="Dział" placeholder={details.sDepartment} disabled/>
+                        <TextInput label="Cel dokumentu" placeholder={details.typeOfDocument} disabled/>
                         <Select
                             label="Odbiorca dokumentu"
-                            placeholder="Wybierz pracownika HR"
-                            data={selectData}
+                            placeholder={details.rFirstName + ' '+details.rLastName}
+                            disabled
+                            data={['']}
                             onChange={setSelectedReceiverId}
                         />
                         <Progress radius="md" value={50} animated />
-                        <Button rightSection={<IconArrowBack size={16} />} variant="light" size="md">Wróć</Button>
-                        <Button rightSection={<IconFileArrowRight size={16} />} size="md" onClick={handleOpen}>Złóż wniosek</Button>
-                        <Modal
-                            size="100vw"
-                            opened={opened}
-                            onClose={close}
-                            withCloseButton={false}
-                            centered
-                            shadow="md"
-                            style={{ position: 'absolute', top: '0%', left: '0%' }}
-                            overlayProps={{
-                                backgroundOpacity: 0.55,
-                                color: '#ffffff',
-                                blur: 6
-                            }}
-                        >
-                            <NewFileModal4 closeParentModal={closeModal4} />
-                        </Modal>
+                        <Button rightSection={<IconFileX size={16} />} disabled={!decision} variant="filled" color="red" size="md" onClick={handleNegative}>Odrzuć wniosek</Button>
+                        <Button rightSection={<IconFileCheck  size={16} />} size="md" disabled={!decision} onClick={handlePositive}>Akceptuj wniosek</Button>
+
                     </Paper>
                 </GridCol>
             </Grid>

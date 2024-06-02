@@ -15,7 +15,6 @@ namespace Aurora.Server.Models.PersonalInfoEntity
             Map(x => x.NIP);
             Map(x => x.HealthCareNumber);
             Map(x => x.Notes);
-            Map(x => x.FamilyMemberContact);
             Map(x => x.TypeOfContract).CustomType<TypeOfContract>();
 
             Table(tablename);

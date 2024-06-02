@@ -16,7 +16,7 @@ import {IconFileArrowRight, IconRestore} from "@tabler/icons-react";
 import {useDisclosure} from "@mantine/hooks";
 import  "./TestModal.css";
 import NewFormModal3 from "./NewFormModal3.tsx";
-export default function NewFormModal2({closeParentModal}){
+export default function NewFormModal2({closeParentModal},{chosenDocType}){
     const [opened, { open, close }] = useDisclosure(false);
 
     const closeModal3 = () => {
@@ -41,7 +41,7 @@ export default function NewFormModal2({closeParentModal}){
                         <TextInput label={"Dział"} placeholder={"Dział IT"} />
                         <TextInput label={"Początek urlopu"} placeholder={"10.07.2024"}/>
                         <TextInput label={"Koniec urlopu"} placeholder={"19.07.2024"} />
-                        <TextInput label={"Cel urlopu"} placeholder={"Urlop wypoczynkowy"} />
+                        <TextInput label={"Cel urlopu"} disabled placeholder={"Urlop wypoczynkowy"} />
                         <TextInput label={"Odbiorca wniosku"} placeholder={"Anna Kolas | Dział HR"} />
                         <Progress radius="md" value={50} animated />
                         <Button rightSection={<IconRestore size={16} />} variant={"light"} size={"md"} >Wróć do kalendarza</Button>

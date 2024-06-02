@@ -3,9 +3,10 @@ import {AppShell, Burger, Group, Image, rem} from "@mantine/core";
 import {useDisclosure} from "@mantine/hooks";
 import logo from "../../../assets/LogoWithName.svg";
 import YourDocs from "../../../features/Commons/DocumentManagment/YourDocs/YourDocs.tsx";
+import AllDocs from "../../../features/HR/Forms/AllDocs.tsx";
 
 
-export default function AllDocs(){
+export default function AllDoc(){
     const [opened, { toggle }] = useDisclosure();
     return(
         <AppShell
@@ -36,7 +37,7 @@ export default function AllDocs(){
             </AppShell.Navbar>
             <AppShell.Main pt={rem(16)}>
                 <div>
-                    <YourDocs/>
+                    <AllDocs/>
                 </div>
             </AppShell.Main>
         </AppShell>

@@ -8,7 +8,7 @@ namespace Aurora.Server.Persistence.BankInfoEntity.Database
         public override void Up()
         {
             Create.Table("BankInfoEntity")
-                .WithColumn(nameof(Models.BankInfoEntity.BankInfoEntity.Id)).AsString().NotNullable().PrimaryKey()
+                .WithColumn(nameof(Models.BankInfoEntity.BankInfoEntity.Id)).AsGuid().NotNullable().PrimaryKey()
                 .WithColumn(nameof(Models.BankInfoEntity.BankInfoEntity.AccountNumber)).AsString().NotNullable()
                 .WithColumn(nameof(Models.BankInfoEntity.BankInfoEntity.IBANAccountNumber)).AsString().NotNullable()
                 .WithColumn(nameof(Models.BankInfoEntity.BankInfoEntity.SWIFTBankCode)).AsString().NotNullable()

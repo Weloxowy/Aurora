@@ -49,6 +49,8 @@ namespace Aurora.Server
                         .Mappings(m =>
                             m.FluentMappings.AddFromAssemblyOf<DepartmentRoleEntity>())
                         .Mappings(m =>
+                            m.FluentMappings.AddFromAssemblyOf<DocumentEntity>())
+                        .Mappings(m =>
                             m.FluentMappings.AddFromAssemblyOf<FamilyMemberEntity>())
                         .Mappings(m =>
                             m.FluentMappings.AddFromAssemblyOf<PersonalInfoEntity>().AddFromAssemblyOf<TypeOfContract>())

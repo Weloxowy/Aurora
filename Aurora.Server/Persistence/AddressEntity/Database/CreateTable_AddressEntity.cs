@@ -8,7 +8,7 @@ namespace Aurora.Server.Persistence.AddressEntity.Database
         public override void Up()
         {
             Create.Table("AddressEntity")
-                .WithColumn(nameof(Models.AddressEntity.AddressEntity.Id)).AsString().NotNullable().PrimaryKey()
+                .WithColumn(nameof(Models.AddressEntity.AddressEntity.Id)).AsGuid().NotNullable().PrimaryKey()
                 .WithColumn(nameof(Models.AddressEntity.AddressEntity.Street)).AsString().NotNullable()
                 .WithColumn(nameof(Models.AddressEntity.AddressEntity.PostalCode)).AsString().NotNullable()
                 .WithColumn(nameof(Models.AddressEntity.AddressEntity.City)).AsString().NotNullable()

@@ -1,7 +1,7 @@
 
-export default async function GetAllUserData() {
+export default async function GetAllUsersData() {
 
-    const url = "https://localhost:7287/api/UserEntity/allinfo";
+    const url = "https://localhost:7287/api/UserEntity/allusersinfo";
     try {
         const response = await fetch(url, {
             credentials: 'include',
@@ -16,7 +16,7 @@ export default async function GetAllUserData() {
             throw new Error(`HTTP error! Status: ${response.status}, Message: ${errorMessage}`);
         }
         const data = await response.json();
-        //console.log(data);
+        console.log(data);
 
         return data;
     } catch (error) {

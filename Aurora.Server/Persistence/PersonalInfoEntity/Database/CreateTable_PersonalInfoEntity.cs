@@ -8,7 +8,7 @@ namespace Aurora.Server.Persistence.PersonalInfoEntity.Database
         public override void Up()
         {
             Create.Table("PersonalInfoEntity")
-                .WithColumn(nameof(Models.PersonalInfoEntity.PersonalInfoEntity.Id)).AsString().NotNullable().PrimaryKey()
+                .WithColumn(nameof(Models.PersonalInfoEntity.PersonalInfoEntity.Id)).AsGuid().NotNullable().PrimaryKey()
                 .WithColumn(nameof(Models.PersonalInfoEntity.PersonalInfoEntity.HireDate)).AsDateTime().NotNullable()
                 .WithColumn(nameof(Models.PersonalInfoEntity.PersonalInfoEntity.FireDate)).AsDateTime().Nullable()
                 .WithColumn(nameof(Models.PersonalInfoEntity.PersonalInfoEntity.Department)).AsString().NotNullable()
@@ -16,9 +16,8 @@ namespace Aurora.Server.Persistence.PersonalInfoEntity.Database
                 .WithColumn(nameof(Models.PersonalInfoEntity.PersonalInfoEntity.NIP)).AsString().Nullable()
                 .WithColumn(nameof(Models.PersonalInfoEntity.PersonalInfoEntity.HealthCareNumber)).AsString().Nullable()
                 .WithColumn(nameof(Models.PersonalInfoEntity.PersonalInfoEntity.Notes)).AsString().NotNullable()
-                .WithColumn(nameof(Models.PersonalInfoEntity.PersonalInfoEntity.TypeOfContract)).AsInt32().NotNullable()
-                .WithColumn("FamilyMemberContact").AsString().Nullable();
-            Create.ForeignKey("FK_PersonalInfo_FamilyMember").FromTable("PersonalInfoEntity").ForeignColumn("FamilyMemberContact").ToTable("FamilyMemberEntity").PrimaryColumn("Id");
+                .WithColumn(nameof(Models.PersonalInfoEntity.PersonalInfoEntity.TypeOfContract)).AsInt32().NotNullable();
+                
         }
 
         public override void Down()

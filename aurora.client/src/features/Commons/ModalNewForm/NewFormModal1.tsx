@@ -16,18 +16,24 @@ import {IconFileArrowRight, IconRestore} from "@tabler/icons-react";
 import {useDisclosure} from "@mantine/hooks";
 import  "./TestModal.css";
 import NewFormModal2 from "./NewFormModal2.tsx";
+import {useState} from "react";
+import {valueOf} from "dayjs";
 export default function NewFormModal1({closeParentModal}){
     const [opened, { open, close }] = useDisclosure(false);
-
+    const [selectedValue, setSelectedValue] = useState('');
     const closeModal2 = () => {
         close();
         closeParentModal();
     };
 
+    const handleRadioChange = (event) => {
+        setSelectedValue(event.currentTarget.value);
+    };
+
     return(
         <>
         <Title>Wybierz rodzaj wniosku</Title>
-            <Radio.Group
+            <Radio.Group value={selectedValue} onChange={handleRadioChange}
             >
                 <Stack mt="xs">
                     <Radio value="urlop" label="Urlop" />
@@ -46,7 +52,7 @@ export default function NewFormModal1({closeParentModal}){
                                blur: 6
                            }}
                     >
-                        <NewFormModal2 closeParentModal={closeModal2}  />
+                        <NewFormModal2 closeParentModal={closeModal2}/>
                     </Modal>
         </>
     )

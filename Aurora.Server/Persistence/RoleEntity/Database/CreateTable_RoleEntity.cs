@@ -8,7 +8,7 @@ namespace Aurora.Server.Persistence.RoleEntity.Database
         public override void Up()
         {
             Create.Table("RoleEntity")
-                .WithColumn(nameof(Models.RoleEntity.RoleEntity.Id)).AsString().NotNullable().PrimaryKey()
+                .WithColumn(nameof(Models.RoleEntity.RoleEntity.Id)).AsGuid().NotNullable().PrimaryKey()
                 .WithColumn(nameof(Models.RoleEntity.RoleEntity.RoleName)).AsString().NotNullable();
         }
 

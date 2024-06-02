@@ -1,5 +1,6 @@
 ﻿using Aurora.Server.Controllers.UserEntity;
 using Aurora.Server.Models.AspNetUsers;
+using Aurora.Server.Models.PersonalInfoEntity;
 using Aurora.Server.Persistance.AspNetUsers;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Cors;
@@ -7,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
+using System.Text.Json.Nodes;
 
 namespace Aurora.Server.Controllers.AspNetUsers
 {
@@ -269,33 +271,110 @@ namespace Aurora.Server.Controllers.AspNetUsers
                 }
             }
         }
-            
-            [HttpGet("alluserinfo/{id}")]
-            public async Task<ActionResult<List<UserFullInfoDTO>>> GetUserFullInfoAsync()
+
+        [HttpGet("allusersinfo")]
+        public async Task<ActionResult<List<UserFullInfoDTO>>> GetUserFullInfoAsync()
+        {
+            using (var session = NHibernateHelper.OpenSession())
             {
+                var users = await Task.Run(() =>
+                {
+                    return (from u in session.Query<Models.AspNetUsers.AspNetUsers>()
+                            join a in session.Query<Models.AddressEntity.AddressEntity>() on u.AddressId equals a.Id into addressJoin
+                            from a in addressJoin.DefaultIfEmpty()
+                            join b in session.Query<Models.BankInfoEntity.BankInfoEntity>() on u.BankInfoEntityId equals b.Id into bankJoin
+                            from b in bankJoin.DefaultIfEmpty()
+                            join p in session.Query<Models.PersonalInfoEntity.PersonalInfoEntity>() on u.PersonalInfoEntityId equals p.Id into personalJoin
+                            from p in personalJoin.DefaultIfEmpty()
+                            select new UserFullInfoDTO
+                            {
+                                UserId = Guid.Parse(u.Id),
+                                FirstName = u.FirstName,
+                                LastName = u.LastName,
+                                Email = u.Email,
+                                IsUserProfileActive = u.IsUserProfileActive,
+                                UserRank = u.UserRank,
+                                AddressId = a != null ? a.Id : null,
+                                Street = a.Street,
+                                PostalCode = a.PostalCode,
+                                City = a.City,
+                                Region = a.Region,
+                                Country = a.Country,
+                                BankInfoEntityId = b != null ? b.Id : null,
+                                AccountNumber = b.AccountNumber,
+                                IBANAccountNumber = b.IBANAccountNumber,
+                                BankName = b.BankName,
+                                SWIFTBankCode = b.SWIFTBankCode,
+                                BankCountry = b.Country,
+                                OwnerName = b.OwnerName,
+                                US = "I US w Małogoszczy",  // Przykładowe wartości, ponieważ nie są określone
+                                CityUS = "Małogoszcz",
+                                PersonalInfoEntityId = p != null ? p.Id : null,
+                                HireDate = p.HireDate,
+                                FireDate = p.FireDate,
+                                Department = p.Department,
+                                Position = p.Position,
+                                NIP = p.NIP,
+                                HealthCareNumber = p.HealthCareNumber,
+                                PersonalNotes = p.Notes,
+                                TypeOfContract = p.TypeOfContract
+                            }).ToList();
+                });
+
+                return Ok(users);
+            }
+        }
+
+
+
+        [HttpGet("allinfo")]
+        public async Task<IActionResult> GetUserAllInfo()
+        {
+            // Check if user is authenticated
+            var user = HttpContext.User;
+            if (user.Identity != null && user.Identity.IsAuthenticated)
+            {
+                // Retrieve user ID from claims
+                var userIdClaim = user.FindFirst(ClaimTypes.NameIdentifier);
+                if (userIdClaim == null)
+                {
+                    return BadRequest("User ID claim not found.");
+                }
+
+                // Parse user ID
+                if (!Guid.TryParse(userIdClaim.Value, out Guid userId))
+                {
+                    return BadRequest("Invalid user ID format.");
+                }
+
+                // Retrieve user entity by ID
                 using (var session = NHibernateHelper.OpenSession())
                 {
-                    var users = await Task.Run(() =>
+                    var userEntity = await Task.Run(() =>
                     {
                         return (from u in session.Query<Models.AspNetUsers.AspNetUsers>()
                                 join a in session.Query<Models.AddressEntity.AddressEntity>() on u.AddressId equals a.Id into addressJoin
                                 from a in addressJoin.DefaultIfEmpty()
                                 join b in session.Query<Models.BankInfoEntity.BankInfoEntity>() on u.BankInfoEntityId equals b.Id into bankJoin
                                 from b in bankJoin.DefaultIfEmpty()
+                                join p in session.Query<Models.PersonalInfoEntity.PersonalInfoEntity>() on u.PersonalInfoEntityId equals p.Id into personalJoin
+                                from p in personalJoin.DefaultIfEmpty()
+                                where u.Id == userIdClaim.Value
                                 select new UserFullInfoDTO
                                 {
                                     UserId = Guid.Parse(u.Id),
                                     FirstName = u.FirstName,
                                     LastName = u.LastName,
+                                    Email = u.Email,
                                     IsUserProfileActive = u.IsUserProfileActive,
                                     UserRank = u.UserRank,
-                                    AddressId = a != null ? a.Id : (Guid?)null,
+                                    AddressId = a != null ? a.Id : null,
                                     Street = a.Street,
                                     PostalCode = a.PostalCode,
                                     City = a.City,
                                     Region = a.Region,
                                     Country = a.Country,
-                                    BankInfoEntityId = b != null ? b.Id : (Guid?)null,
+                                    BankInfoEntityId = b != null ? b.Id : null,
                                     AccountNumber = b.AccountNumber,
                                     IBANAccountNumber = b.IBANAccountNumber,
                                     BankName = b.BankName,
@@ -303,133 +382,32 @@ namespace Aurora.Server.Controllers.AspNetUsers
                                     BankCountry = b.Country,
                                     OwnerName = b.OwnerName,
                                     US = "defaultUS",  // Przykładowe wartości, ponieważ nie są określone
-                                    CityUS = "defaultCityUS"
-                                }).ToList();
+                                    CityUS = "defaultCityUS",
+                                    PersonalInfoEntityId = p != null ? p.Id : null,
+                                    HireDate = p.HireDate,
+                                    FireDate = p.FireDate,
+                                    Department = p.Department,
+                                    Position = p.Position,
+                                    NIP = p.NIP,
+                                    HealthCareNumber = p.HealthCareNumber,
+                                    PersonalNotes = p.Notes,
+                                    TypeOfContract = p.TypeOfContract
+                                }).FirstOrDefault();
                     });
 
-                    return Ok(users);
+                    return Ok(userEntity);
                 }
             }
-
-    
-    [HttpGet("alluserinfo2/{id}")]
-            public async Task<ActionResult<UserFullInfoDTO>> GetAllUserInfo2Async(Guid id)
+            else
             {
-                using (var session = NHibernateHelper.OpenSession())
-                {
-                    var existingUser = session.Query<Models.AspNetUsers.AspNetUsers>().FirstOrDefault(u => u.Id == id.ToString());
-                    if (existingUser == null)
-                    {
-                        return NotFound("User not found");
-                    }
-                    else
-                    {
-
-                        var user = await Task.Run(() =>
-                        {
-                            return (from u in session.Query<Models.AspNetUsers.AspNetUsers>()
-                                    join a in session.Query<Models.AddressEntity.AddressEntity>() on u.AddressId equals a.Id into addressJoin
-                                    from a in addressJoin.DefaultIfEmpty()
-                                    join b in session.Query<Models.BankInfoEntity.BankInfoEntity>() on u.BankInfoEntityId equals b.Id into bankJoin
-                                    from b in bankJoin.DefaultIfEmpty()
-                                    where u.Id == id.ToString()
-                                    select new UserFullInfoDTO
-                                    {
-                                        UserId = Guid.Parse(u.Id),
-                                        FirstName = u.FirstName,
-                                        LastName = u.LastName,
-                                        IsUserProfileActive = u.IsUserProfileActive,
-                                        UserRank = u.UserRank,
-                                        AddressId = a != null ? a.Id : (Guid?)null,
-                                        Street = a.Street,
-                                        PostalCode = a.PostalCode,
-                                        City = a.City,
-                                        Region = a.Region,
-                                        Country = a.Country,
-                                        BankInfoEntityId = b != null ? b.Id : (Guid?)null,
-                                        AccountNumber = b.AccountNumber,
-                                        IBANAccountNumber = b.IBANAccountNumber,
-                                        BankName = b.BankName,
-                                        SWIFTBankCode = b.SWIFTBankCode,
-                                        BankCountry = b.Country,
-                                        OwnerName = b.OwnerName,
-                                        US = "defaultUS",  // Przykładowe wartości, ponieważ nie są określone
-                                        CityUS = "defaultCityUS"
-                                    }).ToList();
-                        });
-
-                        return Ok(user);
-                    }
-                }
+                // User is not authenticated
+                return Unauthorized();
             }
-            
-            [HttpGet("allinfo")]
-            public async Task<IActionResult> GetUserAllInfo()
-            {
-                // Check if user is authenticated
-                var user = HttpContext.User;
-                if (user.Identity != null && user.Identity.IsAuthenticated)
-                {
-                    // Retrieve user ID from claims
-                    var userIdClaim = user.FindFirst(ClaimTypes.NameIdentifier);
-                    if (userIdClaim == null)
-                    {
-                        return BadRequest("User ID claim not found.");
-                    }
+        }
 
-                    // Parse user ID
-                    if (!Guid.TryParse(userIdClaim.Value, out Guid userId))
-                    {
-                        return BadRequest("Invalid user ID format.");
-                    }
 
-                    // Retrieve user entity by ID
-                    using (var session = NHibernateHelper.OpenSession())
-                    {
-                        var userEntity = await Task.Run(() =>
-                        {
-                            return (from u in session.Query<Models.AspNetUsers.AspNetUsers>()
-                                    join a in session.Query<Models.AddressEntity.AddressEntity>() on u.AddressId equals a.Id into addressJoin
-                                    from a in addressJoin.DefaultIfEmpty()
-                                    join b in session.Query<Models.BankInfoEntity.BankInfoEntity>() on u.BankInfoEntityId equals b.Id into bankJoin
-                                    from b in bankJoin.DefaultIfEmpty()
-                                    where u.Id == userIdClaim.Value
-                                    select new UserFullInfoDTO
-                                    {
-                                        UserId = Guid.Parse(u.Id),
-                                        FirstName = u.FirstName,
-                                        LastName = u.LastName,
-                                        IsUserProfileActive = u.IsUserProfileActive,
-                                        UserRank = u.UserRank,
-                                        AddressId = a != null ? a.Id : (Guid?)null,
-                                        Street = a.Street,
-                                        PostalCode = a.PostalCode,
-                                        City = a.City,
-                                        Region = a.Region,
-                                        Country = a.Country,
-                                        BankInfoEntityId = b != null ? b.Id : (Guid?)null,
-                                        AccountNumber = b.AccountNumber,
-                                        IBANAccountNumber = b.IBANAccountNumber,
-                                        BankName = b.BankName,
-                                        SWIFTBankCode = b.SWIFTBankCode,
-                                        BankCountry = b.Country,
-                                        OwnerName = b.OwnerName,
-                                        US = "defaultUS",  // Przykładowe wartości, ponieważ nie są określone
-                                        CityUS = "defaultCityUS"
-                                    }).ToList();
-                        });
-
-                        return Ok(userEntity);
-                    }
-                }
-                else
-                {
-                    // User is not authenticated
-                    return Unauthorized();
-                }
-            }
-              
     }
-    }
+}
+
 
 

@@ -97,7 +97,7 @@ namespace Aurora.Server.Controllers.AddressEntity
         }
 
         
-        [HttpPut]
+        [HttpPatch]
         public ActionResult<Models.AddressEntity.AddressEntity> EditUserEntity([FromBody] Models.AddressEntity.AddressEntity addressEntity)
         {
             if (addressEntity == null)

@@ -4,7 +4,7 @@
     {
         public PersonalInfoEntity() : base() { }
 
-        public PersonalInfoEntity(Guid id, DateTime hireDate, DateTime? fireDate, string department, string position, string? nip, string? healthCareNumber, string notes, TypeOfContract typeOfContract, Guid familyMemberContact)
+        public PersonalInfoEntity(Guid id, DateTime hireDate, DateTime? fireDate, string department, string position, string? nip, string? healthCareNumber, string notes, TypeOfContract typeOfContract)
         {
             Id = id;
             HireDate = hireDate;
@@ -15,7 +15,6 @@
             HealthCareNumber = healthCareNumber;
             Notes = notes;
             TypeOfContract = typeOfContract;
-            FamilyMemberContact = familyMemberContact;
         }
 
         public virtual Guid Id { get; set; }
@@ -27,6 +26,5 @@
         public virtual string? HealthCareNumber { get; set; }
         public virtual string Notes { get; set; }
         public virtual TypeOfContract TypeOfContract { get; set; }
-        public virtual Guid? FamilyMemberContact { get; set; }
     }
 }
