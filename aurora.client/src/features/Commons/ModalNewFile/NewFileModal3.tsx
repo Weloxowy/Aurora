@@ -150,9 +150,9 @@ export default function NewFileModal3({ closeParentModal, chosenDocType, file }:
     }
     return (
         <>
-            <Title>Wniosek urlopowy | Aleksander Wiech</Title>
+            <Title>Nowy dokument</Title>
             <Text /* tego wiersza nie dawać przy tworzeniu wnioskow */>
-                Wniosek Odbiorca: Anna Kolas | Dział Kadr
+
             </Text>
             <Grid style={{ width: 'max-content'}} grow gutter="lg">
                 <GridCol span={4}>
@@ -184,7 +184,7 @@ export default function NewFileModal3({ closeParentModal, chosenDocType, file }:
                         <Text>Tutaj pojawią się najważniejsze informacje. Sprawdź ich poprawność, a w razie konieczności
                             dokonaj korekty.</Text>
                         <TextInput label="Imię i nazwisko" disabled placeholder={userInstance.firstName+' '+userInstance.lastName}/>
-                        <TextInput label="Dział" placeholder={userInstance.department}/>
+                        <TextInput label="Dział" disabled placeholder={userInstance.department}/>
                         <TextInput label="Cel dokumentu" placeholder={chosenDocType} disabled/>
                         <Select
                             label="Odbiorca dokumentu"

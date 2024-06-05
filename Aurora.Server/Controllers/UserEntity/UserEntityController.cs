@@ -405,7 +405,63 @@ namespace Aurora.Server.Controllers.AspNetUsers
             }
         }
 
+        [HttpGet("allinfo/{id}")]
+        public async Task<IActionResult> GetUserAllInfo(Guid id)
+        {
 
+               
+                // Retrieve user entity by ID
+                using (var session = NHibernateHelper.OpenSession())
+                {
+                    var userEntity = await Task.Run(() =>
+                    {
+                        return (from u in session.Query<Models.AspNetUsers.AspNetUsers>()
+                                join a in session.Query<Models.AddressEntity.AddressEntity>() on u.AddressId equals a.Id into addressJoin
+                                from a in addressJoin.DefaultIfEmpty()
+                                join b in session.Query<Models.BankInfoEntity.BankInfoEntity>() on u.BankInfoEntityId equals b.Id into bankJoin
+                                from b in bankJoin.DefaultIfEmpty()
+                                join p in session.Query<Models.PersonalInfoEntity.PersonalInfoEntity>() on u.PersonalInfoEntityId equals p.Id into personalJoin
+                                from p in personalJoin.DefaultIfEmpty()
+                                where u.Id == id.ToString()
+                                select new UserFullInfoDTO
+                                {
+                                    UserId = Guid.Parse(u.Id),
+                                    FirstName = u.FirstName,
+                                    LastName = u.LastName,
+                                    Email = u.Email,
+                                    IsUserProfileActive = u.IsUserProfileActive,
+                                    UserRank = u.UserRank,
+                                    AddressId = a != null ? a.Id : null,
+                                    Street = a.Street,
+                                    PostalCode = a.PostalCode,
+                                    City = a.City,
+                                    Region = a.Region,
+                                    Country = a.Country,
+                                    BankInfoEntityId = b != null ? b.Id : null,
+                                    AccountNumber = b.AccountNumber,
+                                    IBANAccountNumber = b.IBANAccountNumber,
+                                    BankName = b.BankName,
+                                    SWIFTBankCode = b.SWIFTBankCode,
+                                    BankCountry = b.Country,
+                                    OwnerName = b.OwnerName,
+                                    US = "defaultUS",  // Przykładowe wartości, ponieważ nie są określone
+                                    CityUS = "defaultCityUS",
+                                    PersonalInfoEntityId = p != null ? p.Id : null,
+                                    HireDate = p.HireDate,
+                                    FireDate = p.FireDate,
+                                    Department = p.Department,
+                                    Position = p.Position,
+                                    NIP = p.NIP,
+                                    HealthCareNumber = p.HealthCareNumber,
+                                    PersonalNotes = p.Notes,
+                                    TypeOfContract = p.TypeOfContract
+                                }).FirstOrDefault();
+                    });
+
+                    return Ok(userEntity);
+                }
+            }
+        
     }
 }
 

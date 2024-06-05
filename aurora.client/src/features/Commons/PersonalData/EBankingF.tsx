@@ -14,7 +14,7 @@ export default function EBankingF(){
                         <TextInput label={"Numer rachunku"} placeholder={"32 1212 1212 1212 1212 1212 1212"} disabled/>
                         <TextInput label={"Nazwa banku"} placeholder={"Alior Bank"} disabled/>
                         <TextInput label={"Kraj"} placeholder={"PL"} disabled/>
-                        <TextInput label={"Imię i nazwisko właściciela"} placeholder={"Artur Wiech"} disabled/>
+                        <TextInput label={"Imię i nazwisko właściciela"} placeholder={"Artur Kaleta"} disabled/>
 
                     </Fieldset>
                     <Fieldset legend="Informacje podatkowe">

@@ -1,8 +1,6 @@
 import {Button, Group, Menu, Modal, rem, Table, Tabs, Text, Title} from "@mantine/core";
 import {IconFileArrowRight, IconFileImport, IconFilePlus, IconRestore, IconSettings} from "@tabler/icons-react";
 import {useState} from "react";
-import GETDocumentDetails from "../../../functions/FormsAndDocuments/GETDocumentDetails/GETDocumentDetails.ts";
-import NewFileModal3 from "../../Commons/ModalNewFile/NewFileModal3.tsx";
 import ViewFileModal from "../../Commons/ModalViewForm/ViewFileModal.tsx";
 import {useDisclosure} from "@mantine/hooks";
 
@@ -66,7 +64,9 @@ export default function AllDocs(){
     return (
         <>
             <Title order={2} mb={rem(20)} style={{position:'initial',alignItems:'center', top:'5%'}}>Skrzynka podawcza</Title>
-            <Button onClick={open}>test</Button>
+
+            <Button hidden={true} onClick={open}>test</Button>
+
             <Modal
                 size="100vw"
                 opened={opened}
@@ -81,7 +81,7 @@ export default function AllDocs(){
                     blur: 6
                 }}
             >
-                <ViewFileModal id={"b3527209-d0e2-4179-8451-b183016af53a"} />
+                <ViewFileModal id={"f7b12476-028f-48ef-a3f2-b18600a31eb0"} />
             </Modal>
             <Tabs defaultValue="all" value={activeTab} onChange={setActiveTab} style={{width: '70vw', marginTop: '5vh'}}>
                 <Tabs.List>

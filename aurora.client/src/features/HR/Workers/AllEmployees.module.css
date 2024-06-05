@@ -1,0 +1,8 @@
+.rows{
+    cursor: pointer;
+    height: 37px;
+}
+
+.rows:hover{
+    color:  var(--mantine-color-blue-filled);
+}

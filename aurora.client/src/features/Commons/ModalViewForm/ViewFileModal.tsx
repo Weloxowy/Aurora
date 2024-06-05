@@ -158,7 +158,7 @@ export default function ViewFileModal({id} : ViewFileModal) {
     }
     return (
         <>
-            <Title>Wniosek urlopowy | Aleksander Wiech</Title>
+            <Title>Wniosek | okazjonalna praca zdalna</Title>
             <Text /* tego wiersza nie dawać przy tworzeniu wnioskow */>
                 Odbiorca: {details.rFirstName + ' '+details.rLastName} | {details.rDepartment}
             </Text>

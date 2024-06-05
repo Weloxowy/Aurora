@@ -16,8 +16,10 @@ import {IconFileArrowRight, IconRestore} from "@tabler/icons-react";
 import {useDisclosure} from "@mantine/hooks";
 import  "./TestModal.css";
 import Modal2 from "./Modal2.tsx";
+import {User} from "../../../../classes/User/User.ts";
 export default function Modal1({closeParentModal}){
     const [opened, { open, close }] = useDisclosure(false);
+    const userInstance = User.getInstance();
 
     const closeModal2 = () => {
         close();
@@ -26,8 +28,8 @@ export default function Modal1({closeParentModal}){
 
     return(
         <>
-        <Title>Wniosek urlopowy | Aleksander Wiech</Title>
-    <Text  /*tego wiersza nie dawać przy tworzeniu wnioskow */>Wniosek  Odbiorca: Anna Kolas | Dział Kadr</Text>
+        <Title>Wniosek urlopowy</Title>
+    <Text  /*tego wiersza nie dawać przy tworzeniu wnioskow */></Text>
         <Grid style={{width: 'max-content'}} grow gutter="lg">
             <GridCol span="content">
                 <Image src={img} radius={20} className="imgg" w={'40vw'} h={'60vh'} fallbackSrc="https://placehold.co/600x400?text=Placeholder" style={{borderStyle: '100px solid green'}} />
@@ -37,12 +39,12 @@ export default function Modal1({closeParentModal}){
                 <Paper>
                     <Title>Szczegóły dokumentu</Title>
                     <Text>Tutaj pojawią się najważniejsze informacje. Sprawdź ich poprawność, a w razie konieczności dokonaj korekty.</Text>
-                    <TextInput label={"Imię i nazwisko"} disabled placeholder={"Aleksander Wiech"} />
-                    <TextInput label={"Dział"} placeholder={"Dział IT"} />
+                    <TextInput label={"Imię i nazwisko"} disabled placeholder={userInstance.firstName + ' '+userInstance.lastName} />
+                    <TextInput label={"Dział"} placeholder={userInstance.department} disabled/>
                     <TextInput label={"Początek urlopu"} placeholder={"10.07.2024"}/>
                     <TextInput label={"Koniec urlopu"} placeholder={"19.07.2024"} />
                     <TextInput label={"Cel urlopu"} placeholder={"Urlop wypoczynkowy"} />
-                    <TextInput label={"Odbiorca wniosku"} placeholder={"Anna Kolas | Dział HR"} />
+                    <TextInput label={"Odbiorca wniosku"} placeholder={"Paweł Kaczor"} />
                     <Progress radius="md" value={50} animated />
                     <Button rightSection={<IconRestore size={16} />} variant={"light"} size={"md"} >Wróć do kalendarza</Button>
                     <Button rightSection={<IconFileArrowRight size={16} />} size={"md"} onClick={open} >Złóż wniosek</Button>
